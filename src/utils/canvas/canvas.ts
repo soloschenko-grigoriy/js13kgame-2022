@@ -90,7 +90,7 @@ export class Canvas implements IAwake {
     text: string,
     position: Vector2D,
     color: Color = new Color(255, 255, 255, 1),
-    fontSize = 14,
+    fontSize = 10,
     font = 'Arial'
   ): void {
     this._ctx.font = `${fontSize}px ${font}`

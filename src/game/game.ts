@@ -1,6 +1,7 @@
 import { Entity } from '@/utils'
 import { Grid } from '@/grid'
 import { GameInputComponent } from './components'
+import { EnemyController } from '@/enemy-controller'
 
 export class Game extends Entity {
   private _lastTimestamp = 0
@@ -11,10 +12,10 @@ export class Game extends Entity {
     return this._entities
   }
 
-  constructor(grid: Grid) {
+  constructor(grid: Grid, enemyController: EnemyController) {
     super()
 
-    this._entities.push(grid)
+    this._entities.push(grid, enemyController)
   }
 
   public Awake(): void {

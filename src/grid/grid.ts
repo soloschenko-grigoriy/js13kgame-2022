@@ -3,11 +3,19 @@ import { Node } from '@/node'
 import { Settings } from '@/settings'
 import { Pathfinder } from '@/pathfinder'
 import { GridOnclickComponent } from './components'
+import { Enemy } from '@/enemy'
 
 export class Grid extends Entity implements IGraph {
   private _nodes: Node[] = []
   private _pathfinder = new Pathfinder(this, Grid.Heuristic)
   private _currentPath: Node[] = []
+
+  public ActiveEnemy: Enemy | null = null
+
+  public get CurrentPath(): Node[] {
+    return this._currentPath
+  }
+
 
   public static Heuristic = (a: IGraphNode, b: IGraphNode): number => Math.abs(a.Position.x - b.Position.x) + Math.abs(a.Position.y - b.Position.y)
 
@@ -50,6 +58,15 @@ export class Grid extends Entity implements IGraph {
 
   public DeterminePathTo(node: Node): void {
     this._currentPath.forEach(item => item.IsOnPath = false)
+
+    if(!this.ActiveEnemy){
+      return
+    }
+
+    this._currentPath = this._pathfinder.CalculatePath(this.ActiveEnemy.Node, node) as Node[]
+    this._currentPath.forEach(item => item.IsOnPath = true)
+
+    this.ActiveEnemy.AllowToMove = true
   }
 
   private InitNodes(): void {
