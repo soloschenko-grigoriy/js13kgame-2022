@@ -1,11 +1,9 @@
 import { Vector2D } from '@/utils'
 import { Node } from '@/node'
-import { Enemy } from '@/enemy'
 import { EnemyLocomotionComponent } from './locomotion'
 import { Settings } from '@/settings'
 
 export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
-  public Entity: Enemy
   private _currentPosition: Vector2D
   private _startPosition: Vector2D
   private _timeStarted: number

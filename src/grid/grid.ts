@@ -7,7 +7,7 @@ import { Enemy } from '@/enemy'
 
 export class Grid extends Entity implements IGraph {
   private _nodes: Node[] = []
-  private _pathfinder = new Pathfinder(this, Grid.Heuristic)
+  private _pathfinder: Pathfinder
   private _currentPath: Node[] = []
 
   public ActiveEnemy: Enemy | null = null
@@ -24,6 +24,8 @@ export class Grid extends Entity implements IGraph {
   }
 
   public Awake(): void {
+    this._pathfinder = new Pathfinder(this, Grid.Heuristic)
+
     this.AddComponent(new GridOnclickComponent())
 
     // awake components
