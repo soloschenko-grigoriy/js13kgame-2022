@@ -29,6 +29,8 @@ export class EnemyController extends Entity {
 
   public Destroy(enemy: Enemy): void {
     this._enemies = this._enemies.filter(item => item != enemy)
+    this._grid.ResetPath()
+    this.SpawnEnemies()
   }
 
   private SpawnEnemies(): void {
@@ -39,7 +41,6 @@ export class EnemyController extends Entity {
     const enemy = new Enemy(node, this)
 
     this._enemies.push(enemy)
-    this._grid.ActiveEnemy = enemy
     enemy.Awake()
   }
 }

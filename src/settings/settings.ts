@@ -19,9 +19,9 @@ export const Settings = Object.freeze({
     },
     locomotion: {
       range: 3,
-      duration: 300
+      duration: 50
     },
-    occupationTime: 5000
+    occupationTime: 300
   },
   debugMode: true
 })

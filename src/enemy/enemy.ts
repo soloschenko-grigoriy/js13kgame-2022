@@ -9,7 +9,7 @@ export class Enemy extends Entity {
   private readonly _locomotionComponent: EnemyLocomotionAnimatedComponent
   private readonly _enemyDrawComponent: EnemyDrawComponent
   private _lastOccupationStarted = 0
-  public AllowToMove = false
+  public Next: Node | null
 
   public get Grid(): Grid {
     return this._controller.Grid
@@ -39,6 +39,11 @@ export class Enemy extends Entity {
 
   public Update(deltaTime: number): void {
     super.Update(deltaTime)
+
+    if(this.Node.IsCorrupted && this._controller.Grid.CurrentPath.length < 1){
+      this._controller.Grid.DeterminePathToNext(this.Node)
+    }
+
     if(this.Node && !this._lastOccupationStarted){
       this._lastOccupationStarted = +(new Date())
 
@@ -56,8 +61,13 @@ export class Enemy extends Entity {
     this._lastOccupationStarted = 0
   }
 
-  private Kill(): void {
+  public ClearDraw(): void {
     this._enemyDrawComponent.Clear()
+  }
+
+  private Kill(): void {
+    this.ClearDraw()
+
     this.ResetCorruption()
     this._controller.Destroy(this)
   }

@@ -7,6 +7,8 @@ export class Node extends Entity implements IGraphNode {
   public Enemy: Enemy | null = null
   public IsCorrupted = false
 
+  private readonly _drawComponent: NodeDrawComponent
+
   public get Size(): Vector2D {
     return new Vector2D(
       this.End.x - this.Start.x,
@@ -32,10 +34,16 @@ export class Node extends Entity implements IGraphNode {
     public readonly Neighbors: Node[]
   ) {
     super()
+
+    this._drawComponent = new NodeDrawComponent()
+  }
+
+  public get IsGoodNextTarget(): boolean {
+    return !this.Enemy && !this.IsCorrupted
   }
 
   public Awake(): void {
-    this.AddComponent(new NodeDrawComponent())
+    this.AddComponent(this._drawComponent)
 
     super.Awake()
   }

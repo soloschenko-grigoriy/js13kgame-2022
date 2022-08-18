@@ -25,7 +25,6 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
 
     if (this._isInProgress && this.Entity.Grid.CurrentPath.length < 1) {
       this._isInProgress = false
-      this.Entity.AllowToMove = false
 
       return
     }
@@ -45,6 +44,7 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
     const progress = (Date.now() - this._timeStarted) / Settings.enemy.locomotion.duration
     node.Enemy = null
 
+    this.Entity.ClearDraw()
     this._previousPosition = this._currentPosition
     if (progress >= 1) {
       this.Entity.Grid.CurrentPath.shift()
