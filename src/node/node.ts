@@ -3,10 +3,9 @@ import { Entity, Vector2D, IGraphNode } from '@/utils'
 import { NodeDrawComponent } from './components'
 
 export class Node extends Entity implements IGraphNode {
-  public IsInLocomotionRange = false
   public IsOnPath = false
-
   public Enemy: Enemy | null = null
+  public IsCorrupted = false
 
   public get Size(): Vector2D {
     return new Vector2D(
@@ -59,9 +58,5 @@ export class Node extends Entity implements IGraphNode {
     }
 
     return true
-  }
-
-  public FindAndSetInLocomotionRange(range: number): void {
-    // ...
   }
 }

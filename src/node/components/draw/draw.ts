@@ -29,8 +29,8 @@ export class NodeDrawComponent implements IComponent {
       return Settings.grid.color.onPath
     }
 
-    if(this.Entity.IsInLocomotionRange){
-      return Settings.grid.color.inLocomotionRange
+    if(this.Entity.IsCorrupted){
+      return Settings.grid.color.corrupted
     }
 
     return Settings.grid.color.regular

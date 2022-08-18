@@ -7,8 +7,8 @@ export const Settings = Object.freeze({
     nodeOffset: 5,
     color: {
       regular: new Color(245, 245, 245, 1),
-      inLocomotionRange: new Color(176, 190, 197, 1),
-      onPath: new Color(51, 255, 153, 1)
+      onPath: new Color(51, 255, 153, 1),
+      corrupted:  new Color(0, 0, 0, 1)
     }
   },
   enemy: {

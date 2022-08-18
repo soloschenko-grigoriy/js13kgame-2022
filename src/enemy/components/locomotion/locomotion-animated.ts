@@ -44,7 +44,6 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
     const targetPosition = next.Center
     const progress = (Date.now() - this._timeStarted) / Settings.enemy.locomotion.duration
     node.Enemy = null
-    next.Enemy = this.Entity
 
     this._previousPosition = this._currentPosition
     if (progress >= 1) {
@@ -54,7 +53,7 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
       this._isInProgress = false
       this._previousPosition = this._currentPosition
       this._currentPosition = targetPosition
-      this._node = next
+      this.Node = next
     } else {
       this._currentPosition = Vector2D.Lerp(this._startPosition, targetPosition, progress)
     }

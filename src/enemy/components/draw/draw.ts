@@ -30,7 +30,7 @@ export class EnemyDrawComponent implements IComponent {
     CanvasLayer.Foreground.FillCircle(this.Position, Settings.enemy.radius, color)
   }
 
-  private Clear(): void {
+  public Clear(): void {
     CanvasLayer.Foreground.ClearRect(
       new Vector2D(
         this.Position.x - Settings.grid.nodeSize / 2,

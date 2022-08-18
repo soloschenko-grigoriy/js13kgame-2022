@@ -15,6 +15,7 @@ export class EnemyLocomotionComponent implements IComponent {
   public set Node(v: Node) {
     this._node = v
     this._node.Enemy = this.Entity
+    this.Entity.ResetCorruption()
   }
 
   public get Position(): Vector2D {
