@@ -21,6 +21,7 @@ export const Settings = Object.freeze({
       range: 3,
       duration: 300
     },
+    occupationTime: 5000
   },
   debugMode: true
 })

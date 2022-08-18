@@ -3,6 +3,7 @@ import { EnemyDrawComponent, EnemyLocomotionAnimatedComponent } from './componen
 import { Node } from '@/node'
 import { Grid } from '@/grid'
 import { EnemyController } from '@/enemy-controller'
+import { Settings } from '@/settings'
 
 export class Enemy extends Entity {
   private readonly _locomotionComponent: EnemyLocomotionAnimatedComponent
@@ -45,7 +46,7 @@ export class Enemy extends Entity {
     }
 
     const currentTime = +(new Date())
-    if(currentTime - this._lastOccupationStarted > 1000 * 5){
+    if(currentTime - this._lastOccupationStarted >= Settings.enemy.occupationTime){
       this.Node.IsCorrupted = true
       this.Kill()
     }
