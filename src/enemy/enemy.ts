@@ -57,7 +57,7 @@ export class Enemy extends Entity {
     }
   }
 
-  public ResetCorruption(): void {
+  public ResetCorruptionTimer(): void {
     this._lastOccupationStarted = 0
   }
 
@@ -68,7 +68,7 @@ export class Enemy extends Entity {
   private Kill(): void {
     this.ClearDraw()
 
-    this.ResetCorruption()
+    this.ResetCorruptionTimer()
     this._controller.Destroy(this)
   }
 }

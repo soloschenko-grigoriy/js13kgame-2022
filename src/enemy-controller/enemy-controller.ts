@@ -5,6 +5,7 @@ import { Entity } from '@/utils'
 
 export class EnemyController extends Entity {
   private _enemies: Enemy[] = []
+  private _elapsedSinceLastSpawn = 0
 
   public get Grid(): Grid {
     return this._grid
@@ -25,15 +26,21 @@ export class EnemyController extends Entity {
     super.Update(deltaTime)
 
     this._enemies.map(enemy => enemy.Update(deltaTime))
+
+    this._elapsedSinceLastSpawn += deltaTime
+    if(this._elapsedSinceLastSpawn >= Settings.enemy.spawnCooldown){
+      this.SpawnEnemies()
+    }
   }
 
   public Destroy(enemy: Enemy): void {
     this._enemies = this._enemies.filter(item => item != enemy)
     this._grid.ResetPath()
-    this.SpawnEnemies()
   }
 
   private SpawnEnemies(): void {
+    this._elapsedSinceLastSpawn = 0
+
     const nodes = this._grid.Nodes
     const dimension = Settings.grid.dimension
 
