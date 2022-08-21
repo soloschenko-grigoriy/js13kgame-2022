@@ -12,5 +12,5 @@ export function random(fromOrRange: number | IRange, possibleTo?: number): numbe
     to = fromOrRange.to
   }
 
-  return Math.floor(Math.random() * to) + from
+  return Math.floor(Math.random() * (to - from + 1)) + from
 }

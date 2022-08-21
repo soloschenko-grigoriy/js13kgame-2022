@@ -1,8 +1,9 @@
-import { Entity, Vector2D, IGraph, IGraphNode } from '@/utils'
+import { Entity, Vector2D, IGraph, IGraphNode, random } from '@/utils'
 import { Node } from '@/node'
 import { Settings } from '@/settings'
 import { Pathfinder } from '@/pathfinder'
 import { GridOnclickComponent } from './components'
+import { BuildingType } from '@/buildings'
 // import { Enemy } from '@/enemy'
 
 export class Grid extends Entity implements IGraph {
@@ -30,6 +31,9 @@ export class Grid extends Entity implements IGraph {
 
     // prepare children
     this.InitNodes()
+
+    // setup buildings
+    this.InitBuildings()
 
     // awake children
     for (const node of this._nodes) {
@@ -100,6 +104,35 @@ export class Grid extends Entity implements IGraph {
         }
 
         this._nodes.push(node)
+      }
+    }
+  }
+
+  private InitBuildings(): void {
+
+    let housesBuilt = 0
+    while(housesBuilt < Settings.buildings.house.amount){
+      const x = random(1 , Settings.grid.dimension - 2)
+      const y = random(1 , Settings.grid.dimension - 2)
+
+      const node = this._nodes.find(n => n.Index.x == x && n.Index.y === y)
+
+      if(node && !node.Building){
+        node.Build(BuildingType.House)
+        housesBuilt++
+      }
+    }
+
+    let turretsBuilt = 0
+    while(turretsBuilt < Settings.buildings.turret.amount){
+      const x = random(6, Settings.grid.dimension - 3)
+      const y = random(1, Settings.grid.dimension - 2)
+
+      const node = this._nodes.find(n => n.Index.x == x && n.Index.y === y)
+
+      if(node && !node.Building){
+        node.Build(BuildingType.Turret)
+        turretsBuilt++
       }
     }
   }

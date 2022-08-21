@@ -25,9 +25,11 @@ export class EnemyDrawComponent implements IComponent {
   }
 
   private Draw(): void {
-    const color = Settings.enemy.colors.a
-
-    CanvasLayer.Foreground.FillCircle(this.Position, Settings.enemy.radius, color)
+    CanvasLayer.Foreground.FillCircle(
+      this.Position,
+      Settings.enemy.radius,
+      Settings.enemy.color
+    )
   }
 
   public Clear(): void {

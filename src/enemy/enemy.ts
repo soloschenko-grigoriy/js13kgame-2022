@@ -52,7 +52,7 @@ export class Enemy extends Entity {
 
     const currentTime = +(new Date())
     if(currentTime - this._lastOccupationStarted >= Settings.enemy.occupationTime){
-      this.Node.IsCorrupted = true
+      this.Node.Corrupt()
       this.Kill()
     }
   }

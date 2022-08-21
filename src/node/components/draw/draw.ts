@@ -25,9 +25,9 @@ export class NodeDrawComponent implements IComponent {
   }
 
   private GetColor(): Color {
-    if(this.Entity.IsOnPath){
-      return Settings.grid.color.onPath
-    }
+    // if(this.Entity.IsOnPath){
+    //   return Settings.grid.color.onPath
+    // }
 
     if(this.Entity.IsCorrupted){
       return Settings.grid.color.corrupted
