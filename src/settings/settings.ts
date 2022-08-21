@@ -30,10 +30,14 @@ export const Settings = Object.freeze({
       charge: 4
     },
     house: {
-      color: new Color(46, 125, 50, 1),
-      amount: 10
+      colors: {
+        bg: new Color(46, 125, 50, 1),
+        text: new Color(224, 224, 224, 1),
+      },
+      amount: 10,
+      capacity: 10
     },
 
   },
-  debugMode: true
+  debugMode: false
 })
