@@ -4,9 +4,16 @@ import { Settings } from '@/settings'
 import { Entity } from '@/utils'
 import { IBuilding } from './building.h'
 import { Enemy } from '@/enemy'
+import { Nation } from '@/nation'
 
 export class Turret extends Entity implements IBuilding {
   private _charge: number = Settings.buildings.turret.charge
+
+  private _population = 0
+
+  public get Population(): number {
+    return this._population
+  }
 
   public get Charge(): number{
     return this._charge
@@ -16,8 +23,10 @@ export class Turret extends Entity implements IBuilding {
     return this._node
   }
 
-  constructor(protected readonly _node: Node){
+  constructor(protected readonly _node: Node, private readonly _nation: Nation){
     super()
+
+    this._population = Settings.buildings.turret.population
   }
 
   public Awake(): void {
@@ -38,7 +47,8 @@ export class Turret extends Entity implements IBuilding {
   }
 
   public Destroy(): void {
-    console.log('turret destroyed')
+    this._nation.ReduceTotalPopulation(this._population)
+    console.log(`Turret destroyed, ${this._population} people died`)
   }
 
   private Attack(enemy: Enemy): void{

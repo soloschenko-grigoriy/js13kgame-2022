@@ -1,6 +1,7 @@
 import { IBuilding, BuildingType } from '@/buildings'
 import { House, Turret } from '@/buildings'
 import { Enemy } from '@/enemy'
+import { Nation } from '@/nation'
 import { Entity, Vector2D, IGraphNode } from '@/utils'
 import { NodeDrawComponent } from './components'
 
@@ -92,17 +93,17 @@ export class Node extends Entity implements IGraphNode {
     this._building = null
   }
 
-  public Build(type: BuildingType): void {
+  public Build(type: BuildingType, nation: Nation): void {
     if(this._building){
       throw new Error('This node already has a building!')
     }
 
     switch(type){
       case BuildingType.Turret:
-        this._building = new Turret(this)
+        this._building = new Turret(this, nation)
         break
 
-      default: this._building = new House(this)
+      default: this._building = new House(this, nation)
     }
 
     this._building.Awake()

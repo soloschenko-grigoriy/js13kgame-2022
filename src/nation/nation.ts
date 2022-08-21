@@ -7,10 +7,14 @@ export class Nation extends Entity {
 
   private _population = 0
 
+  public get Population(): number {
+    return this._population
+  }
+
   constructor(private readonly _grid: Grid){
     super()
 
-    this._population = Settings.buildings.house.capacity * Settings.buildings.house.amount
+    this._population = Settings.buildings.house.population * Settings.buildings.house.amount
   }
 
   public Awake(): void {
@@ -37,7 +41,7 @@ export class Nation extends Entity {
       const node = this._grid.Nodes.find(n => n.Index.x == x && n.Index.y === y)
 
       if(node && !node.Building){
-        node.Build(type)
+        node.Build(type, this)
         alreadyBuilt++
       }
     }

@@ -3,6 +3,7 @@ import { HouseDrawComponent } from './components'
 import { Entity } from '@/utils'
 import { IBuilding } from './building.h'
 import { Settings } from '@/settings'
+import { Nation } from '@/nation'
 
 export class House extends Entity implements IBuilding {
   private _population = 0
@@ -15,10 +16,10 @@ export class House extends Entity implements IBuilding {
     return this._node
   }
 
-  constructor(private readonly _node: Node){
+  constructor(private readonly _node: Node, private readonly _nation: Nation){
     super()
 
-    this._population = Settings.buildings.house.capacity
+    this._population = Settings.buildings.house.population
   }
 
   public Awake(): void {
@@ -30,6 +31,7 @@ export class House extends Entity implements IBuilding {
   }
 
   public Destroy(): void {
+    this._nation.ReduceTotalPopulation(this._population)
     console.log(`House destroyed, ${this._population} people died`)
   }
 }

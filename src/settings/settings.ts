@@ -23,11 +23,14 @@ export const Settings = Object.freeze({
   },
   buildings: {
     turret: {
-      color: new Color(255, 235, 59, 1),
-      progress: new Color(255, 255, 255, 1),
+      colors: {
+        bg: new Color(255, 235, 59, 1),
+        text: new Color(38, 50, 56, 1),
+      },
       radius: 15,
       amount: 2,
-      charge: 4
+      charge: 4,
+      population: 2
     },
     house: {
       colors: {
@@ -35,7 +38,7 @@ export const Settings = Object.freeze({
         text: new Color(224, 224, 224, 1),
       },
       amount: 10,
-      capacity: 10
+      population: 10
     },
 
   },
