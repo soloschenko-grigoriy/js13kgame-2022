@@ -1,10 +1,10 @@
 import { IComponent } from '@/utils'
 import { CanvasLayer } from '@/canvas-layer'
 import { Settings } from '@/settings'
-import { Building } from '@/buildings'
+import { House } from '@/buildings'
 
-export class BuildingDrawHouseComponent implements IComponent {
-  public Entity: Building
+export class HouseDrawComponent implements IComponent {
+  public Entity: House
 
   public Awake(): void {
     this.Draw()

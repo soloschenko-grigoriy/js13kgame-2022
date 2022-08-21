@@ -65,10 +65,13 @@ export class Enemy extends Entity {
     this._enemyDrawComponent.Clear()
   }
 
-  private Kill(): void {
+  public Kill(): void {
     this.ClearDraw()
 
+    this.Node.Enemy = null
+
     this.ResetCorruptionTimer()
+
     this._controller.Destroy(this)
   }
 }

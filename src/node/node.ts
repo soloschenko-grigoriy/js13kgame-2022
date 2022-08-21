@@ -1,4 +1,5 @@
-import { Building, BuildingType } from '@/buildings'
+import { IBuilding, BuildingType } from '@/buildings'
+import { House, Turret } from '@/buildings'
 import { Enemy } from '@/enemy'
 import { Entity, Vector2D, IGraphNode } from '@/utils'
 import { NodeDrawComponent } from './components'
@@ -6,7 +7,7 @@ import { NodeDrawComponent } from './components'
 export class Node extends Entity implements IGraphNode {
   public IsOnPath = false
   public Enemy: Enemy | null = null
-  public get Building() : Building | null {
+  public get Building() : IBuilding | null {
     return this._building
   }
   public get IsCorrupted(): boolean {
@@ -14,7 +15,7 @@ export class Node extends Entity implements IGraphNode {
   }
 
   private readonly _drawComponent: NodeDrawComponent
-  private _building: Building | null = null
+  private _building: IBuilding | null = null
   private _isCorrupted = false
 
   public get Size(): Vector2D {
@@ -96,7 +97,14 @@ export class Node extends Entity implements IGraphNode {
       throw new Error('This node already has a building!')
     }
 
-    this._building = new Building(type, this)
+    switch(type){
+      case BuildingType.Turret:
+        this._building = new Turret(this)
+        break
+
+      default: this._building = new House(this)
+    }
+
     this._building.Awake()
   }
 }

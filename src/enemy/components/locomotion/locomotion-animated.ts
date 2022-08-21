@@ -58,4 +58,8 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
       this._currentPosition = Vector2D.Lerp(this._startPosition, targetPosition, progress)
     }
   }
+
+  public Clear(): void {
+    this._isInProgress = false
+  }
 }

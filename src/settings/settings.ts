@@ -16,16 +16,18 @@ export const Settings = Object.freeze({
     color: new Color(55, 71, 79, 1),
     locomotion: {
       range: 3,
-      duration: 350
+      duration: 50
     },
     occupationTime: 1000,
-    spawnCooldown: 3
+    spawnCooldown: 1
   },
   buildings: {
     turret: {
       color: new Color(255, 235, 59, 1),
+      progress: new Color(255, 255, 255, 1),
       radius: 15,
-      amount: 2
+      amount: 2,
+      charge: 4
     },
     house: {
       color: new Color(46, 125, 50, 1),

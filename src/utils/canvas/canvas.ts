@@ -48,6 +48,22 @@ export class Canvas implements IAwake {
     this._ctx.fill()
   }
 
+  public StrokeCircle(center: Vector2D, radius: number, color: Color): void {
+    this._ctx.beginPath()
+    this._ctx.arc(center.x, center.y, radius, 0, Math.PI * 2)
+    this._ctx.strokeStyle = color.AsString()
+    this._ctx.stroke()
+  }
+
+  public FillSector(center: Vector2D, radius: number, color: Color, startAngle: number, endAngle: number, isCounterClockwise = false): void {
+    this._ctx.beginPath()
+    this._ctx.moveTo(center.x, center.y)
+    this._ctx.arc(center.x, center.y, radius, this.DegreeToRadians(startAngle), this.DegreeToRadians(endAngle), isCounterClockwise)
+    this._ctx.lineTo(center.x, center.y)
+    this._ctx.fillStyle = color.AsString()
+    this._ctx.fill()
+  }
+
   public SetStyle(style: Partial<CSSStyleDeclaration>): void {
     for (const key in style) {
       if (!Object.hasOwnProperty.call(style, key)) {
@@ -96,6 +112,10 @@ export class Canvas implements IAwake {
     this._ctx.font = `${fontSize}px ${font}`
     this._ctx.fillStyle = color.AsString()
     this._ctx.fillText(text, position.x, position.y)
+  }
+
+  private DegreeToRadians(deg: number): number {
+    return deg * Math.PI / 180
   }
 }
 
