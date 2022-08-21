@@ -1,19 +1,11 @@
 import { Entity, Vector2D, IGraph, IGraphNode, random } from '@/utils'
 import { Node } from '@/node'
 import { Settings } from '@/settings'
-import { Pathfinder } from '@/pathfinder'
 import { GridOnclickComponent } from './components'
 import { BuildingType } from '@/buildings'
-// import { Enemy } from '@/enemy'
 
 export class Grid extends Entity implements IGraph {
   private _nodes: Node[] = []
-  private _pathfinder: Pathfinder
-  private _currentPath: Node[] = []
-
-  public get CurrentPath(): Node[] {
-    return this._currentPath
-  }
 
   public static Heuristic = (a: IGraphNode, b: IGraphNode): number => Math.abs(a.Position.x - b.Position.x) + Math.abs(a.Position.y - b.Position.y)
 
@@ -22,8 +14,6 @@ export class Grid extends Entity implements IGraph {
   }
 
   public Awake(): void {
-    this._pathfinder = new Pathfinder(this, Grid.Heuristic)
-
     this.AddComponent(new GridOnclickComponent())
 
     // awake components
@@ -57,17 +47,6 @@ export class Grid extends Entity implements IGraph {
 
   public GetNeighborsOf(node: Node): Node[] {
     return node.Neighbors
-  }
-
-  public DeterminePathToNext(node: Node): void {
-    this._currentPath.forEach(item => item.IsOnPath = false)
-    this._currentPath = this._pathfinder.CalculatePath(node) as Node[]
-    this._currentPath.forEach(item => item.IsOnPath = true)
-  }
-
-  public ResetPath(): void {
-    this._currentPath.forEach(item => item.IsOnPath = false)
-    this._currentPath = []
   }
 
   private InitNodes(): void {

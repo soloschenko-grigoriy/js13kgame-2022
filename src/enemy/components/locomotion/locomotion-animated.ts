@@ -23,13 +23,13 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
       return
     }
 
-    if (this._isInProgress && this.Entity.Grid.CurrentPath.length < 1) {
+    if (this._isInProgress && this.Entity.CurrentPath.length < 1) {
       this._isInProgress = false
 
       return
     }
 
-    const next = this.Entity.Grid.CurrentPath[0]
+    const next = this.Entity.CurrentPath[0]
     if (this._isInProgress && next) {
       return this.Locomote(this._node, next)
     }
@@ -47,7 +47,7 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
     this.Entity.ClearDraw()
     this._previousPosition = this._currentPosition
     if (progress >= 1) {
-      this.Entity.Grid.CurrentPath.shift()
+      this.Entity.CurrentPath.shift()
       next.IsOnPath = false
 
       this._isInProgress = false

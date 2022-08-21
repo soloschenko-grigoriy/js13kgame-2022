@@ -19,7 +19,7 @@ export const Settings = Object.freeze({
       duration: 50
     },
     occupationTime: 1000,
-    spawnCooldown: 1
+    spawnCooldown: 2
   },
   buildings: {
     turret: {
