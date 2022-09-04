@@ -8,4 +8,5 @@ export enum BuildingType {
 export interface IBuilding extends IAwake, IUpdate {
   Node: Node
   Destroy(): void
+  ShowModal(): void
 }

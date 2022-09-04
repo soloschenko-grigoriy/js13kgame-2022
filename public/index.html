@@ -18,17 +18,56 @@
     #hud{
       text-align: center;
     }
+    h1 { font-weight: 300;}
+    .modal {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 400px; /* Could be more or less, depending on screen size */
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <header id="hud">
     <div>
-      <h1>People in danger: <span id="inDanger"></span></h1>
-      <h1>Saved: <span id="saved"></span></h1>
+      <h1>
+        People in danger: <b id="inDanger"></b> | Saved: <b id="saved"></b>
+      </h1>
+      <h1 style="color:red" id="evac"></h1>
     </div>
   </header>
 
-</body>
+  <div class="modal hidden"></div>
 
+  <section class="modal-content hidden" id="houseTemplate">
+    <h4 style="padding:0;margin:0">This is residential building</h4>
+    <p>You can save these people if you evacuate them before their house is destroyed</p>
+    <p><b>10 people</b> live here now</p>
+    <button id="evacBtn">Evacuate <span id="evacAmount">X</span> people</button>
+    <button class="closeModal">Cancel</button>
+  </section>
+
+  <section class="modal-content hidden" id="gameOverTemplate">
+    <h4 style="padding:0;margin:0">Game over!</h4>
+    <p>You managed to evacuate: <span id="finalScore"></span> people</p>
+    <button onclick="window.location.reload()">Start over</button>
+
+  </section>
+</body>
 </html>

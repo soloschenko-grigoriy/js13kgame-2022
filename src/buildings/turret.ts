@@ -46,6 +46,10 @@ export class Turret extends Entity implements IBuilding {
     }
   }
 
+  public ShowModal(): void {
+    return
+  }
+
   public Destroy(): void {
     this._nation.ReduceTotalPopulation(this._population)
     console.log(`Turret destroyed, ${this._population} people died`)

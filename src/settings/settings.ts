@@ -40,7 +40,9 @@ export const Settings = Object.freeze({
       amount: 10,
       population: 10
     },
-
   },
+  hiddenClassName: 'hidden',
+  evacuationAmount: 10,
+  evacuationCooldown: 1,
   debugMode: false
 })

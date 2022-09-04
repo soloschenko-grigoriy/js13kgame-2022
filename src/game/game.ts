@@ -4,6 +4,7 @@ import { GameInputComponent } from './components'
 import { EnemyController } from '@/enemy-controller'
 import { Nation } from '@/nation'
 import { GameHUDComponent } from './components'
+import { Settings } from '@/settings/settings'
 
 enum GameState {
   Init,
@@ -13,6 +14,10 @@ enum GameState {
 
 export class Game extends Entity {
   private _lastTimestamp = 0
+  private _modalElm: HTMLElement
+  private _templateEml: HTMLElement
+  private _finalScoreElm: HTMLElement
+
 
   private _entities: Entity[] = []
 
@@ -53,6 +58,10 @@ export class Game extends Entity {
       // start update loop
       this.Update()
     })
+
+    this._modalElm = document.body.querySelector('.modal') as HTMLElement
+    this._templateEml = document.body.querySelector('#gameOverTemplate') as HTMLElement
+    this._finalScoreElm = document.body.querySelector('#finalScore') as HTMLElement
   }
 
   public Update(): void {
@@ -86,5 +95,11 @@ export class Game extends Entity {
   private GameOver(): void {
     this._state = GameState.Over
     console.log('game is done for')
+
+    this._finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
+
+    this._modalElm.appendChild(this._templateEml)
+    this._modalElm.classList.remove(Settings.hiddenClassName)
+    this._templateEml.classList.remove(Settings.hiddenClassName)
   }
 }

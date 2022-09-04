@@ -7,6 +7,8 @@ export class Nation extends Entity {
 
   private _peopleInDanger = 0
   private _peopleSaved = 0
+  private _timeTillNextEvacuation = Settings.evacuationCooldown
+  private _elapsedSinceLastEvacuation = 0
 
   public get PeopleInDanger(): number {
     return this._peopleInDanger
@@ -14,6 +16,10 @@ export class Nation extends Entity {
 
   public get PeopleSaved(): number {
     return this._peopleSaved
+  }
+
+  public get TimeTillNextEvacuation(): number {
+    return this._timeTillNextEvacuation
   }
 
   constructor(private readonly _grid: Grid){
@@ -33,10 +39,27 @@ export class Nation extends Entity {
 
   public Update(deltaTime: number): void {
     super.Update(deltaTime)
+
+    if(this._timeTillNextEvacuation > 0){
+      this._elapsedSinceLastEvacuation += deltaTime
+      this._timeTillNextEvacuation = Settings.evacuationCooldown - Math.round(this._elapsedSinceLastEvacuation)
+    } else {
+      this._timeTillNextEvacuation = 0
+    }
   }
 
   public ReduceTotalPopulation(population: number): void {
     this._peopleInDanger -= population
+  }
+
+  public Evacuate(people: number):void {
+    this._peopleSaved += people
+    this.ReduceTotalPopulation(people)
+
+    this._elapsedSinceLastEvacuation = 0
+    this._timeTillNextEvacuation = Settings.evacuationCooldown
+
+    console.log(`You saved ${people} !`)
   }
 
   private InitBuildings(type: BuildingType, amount: number, xMin: number, xMax: number, yMin: number, yMax: number): void {
