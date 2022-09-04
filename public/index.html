@@ -67,7 +67,20 @@
     <h4 style="padding:0;margin:0">Game over!</h4>
     <p>You managed to evacuate: <span id="finalScore"></span> people</p>
     <button onclick="window.location.reload()">Start over</button>
+  </section>
 
+  <section class="modal-content hidden" id="build">
+    <h4>You can build new Tower here to stall enemy and give your citizens a chance to evacuate</h4>
+    <h5>But remember every tower requires soldiers who will inevitably die when enemy conquers the Tower. You will NOT be able to save them</h5>
+    <button id="buildTowerBtn">Build Tower</button>
+    <button class="closeModal">Cancel</button>
+  </section>
+
+
+  <section class="modal-content hidden" id="corrupted">
+    <h4 style="padding:0;margin:0">This territory has been conquered and corrupted by enemy</h4>
+    <p>So sad...</p>
+    <button class="closeModal">Close</button>
   </section>
 </body>
 </html>

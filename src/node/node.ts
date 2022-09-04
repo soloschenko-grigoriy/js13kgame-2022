@@ -1,6 +1,7 @@
 import { IBuilding, BuildingType } from '@/buildings'
 import { House, Turret } from '@/buildings'
 import { Enemy } from '@/enemy'
+import { Game } from '@/game'
 import { Nation } from '@/nation'
 import { Entity, Vector2D, IGraphNode } from '@/utils'
 import { NodeDrawComponent } from './components'
@@ -18,6 +19,10 @@ export class Node extends Entity implements IGraphNode {
   private readonly _drawComponent: NodeDrawComponent
   private _building: IBuilding | null = null
   private _isCorrupted = false
+  private _templateBuildEml: HTMLElement
+  private _templateCorruptedEml: HTMLElement
+  private _buildTowerBtn: HTMLButtonElement
+  // private _onBuildTower = ():void => this.Build(BuildingType.Turret, this._n)
 
   public get Size(): Vector2D {
     return new Vector2D(
@@ -56,6 +61,11 @@ export class Node extends Entity implements IGraphNode {
     this.AddComponent(this._drawComponent)
 
     super.Awake()
+
+    this._templateBuildEml = document.body.querySelector('#build') as HTMLElement
+    this._templateCorruptedEml = document.body.querySelector('#corrupted') as HTMLElement
+    this._buildTowerBtn = this._templateBuildEml.querySelector('#buildTowerBtn') as HTMLButtonElement
+
   }
 
   public Update(deltaTime: number): void {
@@ -107,5 +117,22 @@ export class Node extends Entity implements IGraphNode {
     }
 
     this._building.Awake()
+  }
+
+  public ShowModal(): void {
+    if(this._building){
+      this._building.ShowModal()
+      return
+    }
+
+    if(this._isCorrupted){
+      return
+    }
+
+    Game.GetInstance().ShowModal(this._templateBuildEml)
+  }
+
+  private HideModal(): void {
+    Game.GetInstance().HideModal()
   }
 }
