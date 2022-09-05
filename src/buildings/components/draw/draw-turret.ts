@@ -38,19 +38,19 @@ export class TurretDrawComponent implements IComponent {
   }
 
   private get DegreeForCharge(): number {
-    if(this.Entity.Charge === 4){
+    if(this.Entity.Population === 4){
       return 270
     }
 
-    if(this.Entity.Charge === 3){
+    if(this.Entity.Population === 3){
       return 0
     }
 
-    if(this.Entity.Charge === 2){
+    if(this.Entity.Population === 2){
       return 90
     }
 
-    if(this.Entity.Charge === 1){
+    if(this.Entity.Population === 1){
       return 180
     }
 

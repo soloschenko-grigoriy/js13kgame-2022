@@ -29,20 +29,19 @@ export const Settings = Object.freeze({
       },
       radius: 15,
       amount: 2,
-      charge: 4,
-      population: 2
+      population: 4
     },
     house: {
       colors: {
         bg: new Color(46, 125, 50, 1),
         text: new Color(224, 224, 224, 1),
       },
-      amount: 10,
+      amount: 2,
       population: 10
     },
   },
   hiddenClassName: 'hidden',
   evacuationAmount: 10,
-  evacuationCooldown: 1,
+  evacuationCooldown: 5,
   debugMode: false
 })

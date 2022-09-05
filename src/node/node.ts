@@ -3,6 +3,7 @@ import { House, Turret } from '@/buildings'
 import { Enemy } from '@/enemy'
 import { Game } from '@/game'
 import { Nation } from '@/nation'
+import { Settings } from '@/settings'
 import { Entity, Vector2D, IGraphNode } from '@/utils'
 import { NodeDrawComponent } from './components'
 
@@ -22,7 +23,7 @@ export class Node extends Entity implements IGraphNode {
   private _templateBuildEml: HTMLElement
   private _templateCorruptedEml: HTMLElement
   private _buildTowerBtn: HTMLButtonElement
-  // private _onBuildTower = ():void => this.Build(BuildingType.Turret, this._n)
+  private _onBuildTower = ():void => this.BuildTower()
 
   public get Size(): Vector2D {
     return new Vector2D(
@@ -46,7 +47,7 @@ export class Node extends Entity implements IGraphNode {
     public readonly Start: Vector2D,
     public readonly End: Vector2D,
     public readonly Index: Vector2D,
-    public readonly Neighbors: Node[]
+    public readonly Neighbors: Node[],
   ) {
     super()
 
@@ -64,8 +65,6 @@ export class Node extends Entity implements IGraphNode {
 
     this._templateBuildEml = document.body.querySelector('#build') as HTMLElement
     this._templateCorruptedEml = document.body.querySelector('#corrupted') as HTMLElement
-    this._buildTowerBtn = this._templateBuildEml.querySelector('#buildTowerBtn') as HTMLButtonElement
-
   }
 
   public Update(deltaTime: number): void {
@@ -103,20 +102,22 @@ export class Node extends Entity implements IGraphNode {
     this._building = null
   }
 
-  public Build(type: BuildingType, nation: Nation): void {
+  public Build(type: BuildingType): IBuilding | null{
     if(this._building){
       throw new Error('This node already has a building!')
     }
 
     switch(type){
       case BuildingType.Turret:
-        this._building = new Turret(this, nation)
+        this.TryBuildTower(Game.GetInstance().Nation)
         break
-
-      default: this._building = new House(this, nation)
+      case BuildingType.House: this._building = new House(this, Game.GetInstance().Nation)
+        break
     }
 
-    this._building.Awake()
+    this._building?.Awake()
+
+    return this._building
   }
 
   public ShowModal(): void {
@@ -126,13 +127,41 @@ export class Node extends Entity implements IGraphNode {
     }
 
     if(this._isCorrupted){
+      Game.GetInstance().ShowModal(this._templateCorruptedEml)
       return
     }
 
     Game.GetInstance().ShowModal(this._templateBuildEml)
+
+    this._buildTowerBtn = this._templateBuildEml.querySelector('#buildTowerBtn') as HTMLButtonElement
+    this._buildTowerBtn.addEventListener('click', this._onBuildTower)
+
+    if(!Game.GetInstance().Nation.GetRandomHouseWithPopulation(Settings.buildings.turret.population)){
+      this._buildTowerBtn.setAttribute('disabled', 'disabled')
+    } else {
+      this._buildTowerBtn.removeAttribute('disabled')
+    }
+  }
+
+  private TryBuildTower(nation: Nation): void {
+    const house = nation.GetRandomHouseWithPopulation(Settings.buildings.turret.population)
+    if(!house){
+      return
+    }
+
+    this._building = new Turret(this, nation, house)
+  }
+
+  private BuildTower(): void {
+    this.HideModal()
+
+    this.Build(BuildingType.Turret)
   }
 
   private HideModal(): void {
+    this._buildTowerBtn.removeEventListener('click', this._onBuildTower)
+    this._buildTowerBtn.removeAttribute('disabled')
+
     Game.GetInstance().HideModal()
   }
 }

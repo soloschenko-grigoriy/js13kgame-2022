@@ -132,7 +132,9 @@ export class Game extends Entity {
     this._modalElm.classList.remove(Settings.hiddenClassName)
     this._templateEml.classList.remove(Settings.hiddenClassName)
 
-    this._closeModalBtn.addEventListener('click', this._onClose)
+    if(this._closeModalBtn){
+      this._closeModalBtn.addEventListener('click', this._onClose)
+    }
   }
 
   public HideModal(): void {
@@ -141,7 +143,9 @@ export class Game extends Entity {
 
     document.body.appendChild(this._templateEml)
 
-    this._closeModalBtn.removeEventListener('click', this._onClose)
+    if(this._closeModalBtn){
+      this._closeModalBtn.removeEventListener('click', this._onClose)
+    }
 
     this.Resume()
 
@@ -170,13 +174,14 @@ export class Game extends Entity {
   private GameOver(): void {
     this.RemoveComponent(GameInputComponent)
 
+    const template = document.body.querySelector('#gameOverTemplate') as HTMLElement
+    this._finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
+
     this._state = GameState.Over
     console.log('game is done for')
 
-    this._finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
-
-    const template = document.body.querySelector('#gameOverTemplate') as HTMLElement
-
-    this.ShowModal(template)
+    setTimeout(() => {
+      this.ShowModal(template)
+    }, 0)
   }
 }

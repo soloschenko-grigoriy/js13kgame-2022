@@ -1,4 +1,4 @@
-import { BuildingType } from '@/buildings'
+import { BuildingType, House, Turret } from '@/buildings'
 import { Grid } from '@/grid'
 import { Settings } from '@/settings'
 import { Entity, random } from '@/utils'
@@ -9,6 +9,8 @@ export class Nation extends Entity {
   private _peopleSaved = 0
   private _timeTillNextEvacuation = Settings.evacuationCooldown
   private _elapsedSinceLastEvacuation = 0
+  private _houses: House[] = []
+  private _turrets: Turret[] = []
 
   public get PeopleInDanger(): number {
     return this._peopleInDanger
@@ -22,12 +24,12 @@ export class Nation extends Entity {
     return this._timeTillNextEvacuation
   }
 
+  public get Grid(): Grid {
+    return this._grid
+  }
+
   constructor(private readonly _grid: Grid){
     super()
-
-    this._peopleInDanger =
-      Settings.buildings.house.population * Settings.buildings.house.amount +
-      Settings.buildings.turret.population * Settings.buildings.turret.amount
   }
 
   public Awake(): void {
@@ -35,6 +37,8 @@ export class Nation extends Entity {
 
     this.InitBuildings(BuildingType.House, Settings.buildings.house.amount, 1, Settings.grid.dimension - 2, 1, Settings.grid.dimension - 2)
     this.InitBuildings(BuildingType.Turret, Settings.buildings.turret.amount, 6, Settings.grid.dimension - 3, 1, Settings.grid.dimension - 2)
+
+    this._peopleInDanger = this._houses.reduce((num, item) => num + item.Population, 0)
   }
 
   public Update(deltaTime: number): void {
@@ -62,6 +66,15 @@ export class Nation extends Entity {
     console.log(`You saved ${people} !`)
   }
 
+  public GetRandomHouseWithPopulation(population: number): House | undefined {
+    const houses = this._houses.filter(h => h.Population >= population)
+    if(houses.length < 1){
+      return undefined
+    }
+
+    return houses[random(0, houses.length - 1)]
+  }
+
   private InitBuildings(type: BuildingType, amount: number, xMin: number, xMax: number, yMin: number, yMax: number): void {
     let alreadyBuilt = 0
     while(alreadyBuilt < amount){
@@ -71,8 +84,17 @@ export class Nation extends Entity {
       const node = this._grid.Nodes.find(n => n.Index.x == x && n.Index.y === y)
 
       if(node && !node.Building){
-        node.Build(type, this)
+        const building = node.Build(type)
         alreadyBuilt++
+
+        switch(type){
+          case BuildingType.House:
+            this._houses.push(building as House)
+            break
+          case BuildingType.Turret:
+            this._turrets.push(building as Turret)
+            break
+        }
       }
     }
   }

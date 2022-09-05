@@ -5,38 +5,40 @@ import { Entity } from '@/utils'
 import { IBuilding } from './building.h'
 import { Enemy } from '@/enemy'
 import { Nation } from '@/nation'
+import { House } from './house'
+import { Game } from '@/game'
 
 export class Turret extends Entity implements IBuilding {
-  private _charge: number = Settings.buildings.turret.charge
-
   private _population = 0
+  private _templateEml: HTMLElement
+  private _defendersLeftElm: HTMLElement
 
   public get Population(): number {
     return this._population
-  }
-
-  public get Charge(): number{
-    return this._charge
   }
 
   public get Node(): Node {
     return this._node
   }
 
-  constructor(protected readonly _node: Node, private readonly _nation: Nation){
+  constructor(protected readonly _node: Node, private readonly _nation: Nation, moveFrom: House){
     super()
 
-    this._population = Settings.buildings.turret.population
+    moveFrom.Move(Settings.buildings.turret.population, this)
   }
 
   public Awake(): void {
     this.AddComponent(new TurretDrawComponent())
+    this._nation.ReduceTotalPopulation(this._population)
+
+    this._templateEml = document.body.querySelector('#tower') as HTMLElement
+    this._defendersLeftElm = this._templateEml.querySelector('#defenders') as HTMLElement
   }
 
   public Update(deltaTime: number): void {
     super.Update(deltaTime)
 
-    if(this._charge < 1){
+    if(this._population < 1){
       return
     }
 
@@ -46,8 +48,13 @@ export class Turret extends Entity implements IBuilding {
     }
   }
 
+  public Add(people: number): void {
+    this._population += people
+  }
+
   public ShowModal(): void {
-    return
+    this._defendersLeftElm.innerText = this._population.toString()
+    Game.GetInstance().ShowModal(this._templateEml)
   }
 
   public Destroy(): void {
@@ -58,6 +65,6 @@ export class Turret extends Entity implements IBuilding {
   private Attack(enemy: Enemy): void{
     enemy.Kill()
 
-    this._charge--
+    this._population--
   }
 }

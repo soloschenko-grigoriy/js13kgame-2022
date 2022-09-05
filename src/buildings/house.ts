@@ -42,12 +42,19 @@ export class House extends Entity implements IBuilding {
 
   public Update(deltaTime: number): void {
     super.Update(deltaTime)
+  }
 
-    if(!this._canEvacuate){
-      this._evacuateBtn.setAttribute('disabled', 'disabled')
-    } else {
-      this._evacuateBtn.removeAttribute('disabled')
+  public Move(people: number, to: IBuilding): void {
+    if(people > this._population){
+      return
     }
+
+    to.Add(people)
+    this._population -= people
+  }
+
+  public Add(people: number): void {
+    this._population += people
   }
 
   public Destroy(): void {
@@ -60,10 +67,17 @@ export class House extends Entity implements IBuilding {
     this._evacuateBtn.addEventListener('click', this._onEvacuate)
 
     Game.GetInstance().ShowModal(this._templateEml)
+
+    if(!this._canEvacuate){
+      this._evacuateBtn.setAttribute('disabled', 'disabled')
+    } else {
+      this._evacuateBtn.removeAttribute('disabled')
+    }
   }
 
   private HideModal(): void {
     this._evacuateBtn.removeEventListener('click', this._onEvacuate)
+    this._evacuateBtn.removeAttribute('disabled')
 
     Game.GetInstance().HideModal()
   }
