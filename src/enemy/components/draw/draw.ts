@@ -28,16 +28,9 @@ export class EnemyDrawComponent implements IComponent {
     CanvasLayer.Foreground.DrawImg('tank.png', this.Position, this.Entity.Node.Size)
 
     if(this.Entity.BeingDestroyed){
-      CanvasLayer.Foreground.DrawImg('explosion.png', this.Position, this.Entity.Node.Size)
+      CanvasLayer.Foreground.DrawImg('explosion.png', new Vector2D(this.Position.x + 12, this.Position.y + 5))
       return
     }
-
-    // CanvasLayer.Foreground.FillCircle(
-    //   this.Position,
-    //   Settings.enemy.radius,
-    //   Settings.enemy.color
-    // )
-
   }
 
   public Clear(): void {

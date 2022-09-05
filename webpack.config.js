@@ -4,6 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -29,8 +30,8 @@ module.exports = {
       }
     ]
   },
-  mode: 'development',
-  devtool: 'source-map',
+  mode: 'production',
+  // devtool: 'source-map',
   devServer: {
     hot: true,
     historyApiFallback: true
@@ -40,6 +41,20 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, 'src')
     }
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        terserOptions: {
+          ecma: 'ESNext',
+          mangle: {
+            properties: true
+          },
+        }
+      }),
+    ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

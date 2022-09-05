@@ -7,7 +7,7 @@ export class NodeDrawComponent implements IComponent {
   public Entity: Node
 
   public Awake(): void {
-    CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
+    this.Draw()
   }
 
   public Update(deltaTime: number): void {
@@ -21,7 +21,7 @@ export class NodeDrawComponent implements IComponent {
       CanvasLayer.Background.ClearRect(this.Entity.Start, this.Entity.Size)
 
       CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
-      CanvasLayer.Background.DrawImg('corrupted2.png', new Vector2D(this.Entity.Start.x + 3, this.Entity.Start.y + 3), new Vector2D(45, 46))
+      CanvasLayer.Background.DrawImg('corrupted2.png', new Vector2D(this.Entity.Start.x + 8, this.Entity.Start.y + 10))
     } else {
       CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
     }

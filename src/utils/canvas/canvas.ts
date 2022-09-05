@@ -4,6 +4,32 @@ export class Canvas implements IAwake {
   private _elm: HTMLCanvasElement
   private _ctx: CanvasRenderingContext2D
   private _images: Record<string, HTMLImageElement> = {}
+  private _atlasImg: HTMLImageElement
+
+  private _atlasCoords = [{
+    'filename': 'corrupted2.png',
+    'frame': {'x':32,'y':102,'w':32,'h':33},
+  },
+  {
+    'filename': 'explosion.png',
+    'frame': {'x':40,'y':58,'w':23,'h':33},
+  },
+  {
+    'filename': 'grass.png',
+    'frame': {'x':46,'y':0,'w':16,'h':16},
+  },
+  {
+    'filename': 'house7.png',
+    'frame': {'x':0,'y':102,'w':32,'h':38},
+  },
+  {
+    'filename': 'tank.png',
+    'frame': {'x':0,'y':58,'w':40,'h':44},
+  },
+  {
+    'filename': 'turret3.png',
+    'frame': {'x':0,'y':0,'w':46,'h':58},
+  }]
 
   public get Element(): HTMLCanvasElement {
     return this._elm
@@ -29,6 +55,9 @@ export class Canvas implements IAwake {
     }
 
     this._ctx = ctx
+    // atlas is so small and will be local so we can run away with pretending as if it loads instantly. Dirty hack, ofc
+    this._atlasImg = new Image()
+    this._atlasImg.src = 'pack.png'
   }
 
   public FillRect(start: Vector2D, size: Vector2D, color: Color): void {
@@ -65,18 +94,23 @@ export class Canvas implements IAwake {
     this._ctx.fill()
   }
 
-  public DrawImg(src: string, position: Vector2D, size: Vector2D): void {
-    let image = this._images[src]
-    if(!image){
-      image = new Image()
-      image.src = src
-      this._images[src] = image
-      image.addEventListener('load',  () => {
-        this._ctx.drawImage(image, position.x, position.y, size.x, size.y)
-      })
-    } else {
-      this._ctx.drawImage(image, position.x, position.y, size.x, size.y)
+  public DrawImg(filename: string, position: Vector2D, size?: Vector2D): void {
+    const data = this._atlasCoords.find(item => item.filename === filename)
+    if(!data){
+      return
     }
+
+    this._ctx.drawImage(
+      this._atlasImg,
+      data.frame.x,
+      data.frame.y,
+      data.frame.w,
+      data.frame.h,
+      position.x,
+      position.y,
+      size ? size.x : data.frame.w,
+      size ? size.y : data.frame.h
+    )
   }
 
   public SetStyle(style: Partial<CSSStyleDeclaration>): void {
