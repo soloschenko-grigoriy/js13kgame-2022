@@ -9,7 +9,7 @@ export class Vector2D {
     const y = Number(parsed[1])
 
     if (isNaN(x) || isNaN(y)) {
-      throw new Error(`Cannot instantiate Vector2D from string ${str}`)
+      throw new Error('E') // Cannot instantiate Vector2D from string ${str}
     }
 
     return new Vector2D(x, y)

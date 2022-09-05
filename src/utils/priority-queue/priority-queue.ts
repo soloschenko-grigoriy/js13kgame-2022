@@ -18,7 +18,7 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
   public Dequeue(): T {
     const item = this._items.shift()
     if (typeof item === 'undefined') {
-      throw new Error('Attempt to dequeue from an empty queue')
+      throw new Error('E') // Attempt to dequeue from an empty queue
     }
 
     return item.value

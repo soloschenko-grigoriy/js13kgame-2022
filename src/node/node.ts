@@ -104,7 +104,7 @@ export class Node extends Entity implements IGraphNode {
 
   public Build(type: BuildingType): IBuilding | null{
     if(this._building){
-      throw new Error('This node already has a building!')
+      throw new Error('E') // This node already has a building!
     }
 
     switch(type){

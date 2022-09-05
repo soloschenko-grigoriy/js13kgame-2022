@@ -19,19 +19,19 @@ export class Color {
 
   constructor(r: number, g: number, b: number, a: number) {
     if (!Color.IsValidChannel(r)) {
-      throw new Error('Provided incorrect value for Red channel')
+      throw new Error('E') // Provided incorrect value for Red channel
     }
 
     if (!Color.IsValidChannel(g)) {
-      throw new Error('Provided incorrect value for Green channel')
+      throw new Error('E') // Provided incorrect value for Green channel
     }
 
     if (!Color.IsValidChannel(b)) {
-      throw new Error('Provided incorrect value for Blue channel')
+      throw new Error('E') // Provided incorrect value for Blue channel
     }
 
     if (!Color.IsValidChannel(a, true)) {
-      throw new Error('Provided incorrect value for Alpha channel')
+      throw new Error('E') // Provided incorrect value for Alpha channel
     }
 
     this.R = r
@@ -56,7 +56,7 @@ export class Color {
       a = Number(arr[3])
 
     if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a)) {
-      throw new Error('Invalid string')
+      throw new Error('E') // Invalid string
     }
 
     return new Color(r, g, b, a)

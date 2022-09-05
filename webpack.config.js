@@ -31,8 +31,8 @@ module.exports = {
     ]
   },
   mode: 'production',
-  // devtool: 'source-map',
-  devServer: {
+  devtool: 'source-map', // comment before compressing
+  devServer: { // comment before compressing
     hot: true,
     historyApiFallback: true
   },
@@ -57,7 +57,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(), // comment before compressing
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: `${path.join(__dirname, 'public')}/index.html`,

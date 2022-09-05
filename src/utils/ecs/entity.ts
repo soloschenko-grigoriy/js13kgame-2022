@@ -25,7 +25,7 @@ export abstract class Entity implements IAwake, IUpdate {
         return component as C
       }
     }
-    throw new Error(`Component ${constr.name} not found on Entity ${this.constructor.name}`)
+    throw new Error('E') // Component ${constr.name} not found on Entity ${this.constructor.name}
   }
 
   public RemoveComponent<C extends IComponent>(constr: constr<C>): void {

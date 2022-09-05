@@ -51,7 +51,7 @@ export class Canvas implements IAwake {
 
     const ctx = this._elm.getContext('2d')
     if (!ctx) {
-      throw new Error('Context identifier is not supported')
+      throw new Error('E') // Context identifier is not supported
     }
 
     this._ctx = ctx

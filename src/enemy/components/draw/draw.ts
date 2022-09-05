@@ -9,7 +9,7 @@ export class EnemyDrawComponent implements IComponent {
   private get Position(): Vector2D {
     const position = this.Entity.Position
     if (!position) {
-      throw new Error('Attempt to draw a ship that has no Position')
+      throw new Error('E') // Attempt to draw a ship that has no Position
     }
 
     return new Vector2D(position.x - Settings.grid.nodeSize / 2, position.y - Settings.grid.nodeSize / 2)
