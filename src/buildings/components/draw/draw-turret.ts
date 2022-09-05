@@ -15,23 +15,12 @@ export class TurretDrawComponent implements IComponent {
   }
 
   private Draw(): void {
-
     if(this.Entity.BeingDestroyed){
-      CanvasLayer.Background.DrawImg('explosion.png', this.Entity.Node.Start, this.Entity.Node.Size)
+      CanvasLayer.Background.DrawImg('explosion.png', new Vector2D(this.Entity.Node.Start.x + 12, this.Entity.Node.Start.y + 5))
       return
     }
 
-    CanvasLayer.Background.DrawImg('turret3.png', this.Entity.Node.Start, this.Entity.Node.Size)
-
-    // CanvasLayer.Background.FillSector(
-    //   this.Entity.Node.Center,
-    //   Settings.buildings.turret.radius,
-    //   Settings.buildings.turret.colors.bg,
-    //   -90,
-    //   this.DegreeForCharge,
-    //   true
-    // )
-
+    CanvasLayer.Background.DrawImg('turret3.png', new Vector2D(this.Entity.Node.Start.x + 7, this.Entity.Node.Start.y + 3), new Vector2D(this.Entity.Node.Size.x - 15, this.Entity.Node.Size.y - 7) )
     CanvasLayer.Background.DrawText(
       this.Entity.Population.toString(),
       new Vector2D(this.Entity.Node.Center.x - 4, this.Entity.Node.Center.y + 12),

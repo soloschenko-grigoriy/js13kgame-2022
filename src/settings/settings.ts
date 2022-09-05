@@ -4,7 +4,7 @@ export const Settings = Object.freeze({
   grid: {
     dimension: 11,
     nodeSize: 50,
-    nodeOffset: 5,
+    nodeOffset: 1,
     color: {
       regular: new Color(245, 245, 245, 1),
       onPath: new Color(239, 154, 154, 1),
