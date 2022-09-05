@@ -3,6 +3,7 @@ import { IAwake, Vector2D, Color } from '@/utils'
 export class Canvas implements IAwake {
   private _elm: HTMLCanvasElement
   private _ctx: CanvasRenderingContext2D
+  private _images: Record<string, HTMLImageElement> = {}
 
   public get Element(): HTMLCanvasElement {
     return this._elm
@@ -62,6 +63,20 @@ export class Canvas implements IAwake {
     this._ctx.lineTo(center.x, center.y)
     this._ctx.fillStyle = color.AsString()
     this._ctx.fill()
+  }
+
+  public DrawImg(src: string, position: Vector2D, size: Vector2D): void {
+    let image = this._images[src]
+    if(!image){
+      image = new Image()
+      image.src = src
+      this._images[src] = image
+      image.addEventListener('load',  () => {
+        this._ctx.drawImage(image, position.x, position.y, size.x, size.y)
+      })
+    } else {
+      this._ctx.drawImage(image, position.x, position.y, size.x, size.y)
+    }
   }
 
   public SetStyle(style: Partial<CSSStyleDeclaration>): void {

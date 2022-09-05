@@ -1,4 +1,4 @@
-import { IComponent, Color } from '@/utils'
+import { IComponent, Color, Vector2D } from '@/utils'
 import { Node } from '@/node'
 import { Settings } from '@/settings'
 import { CanvasLayer } from '@/canvas-layer'
@@ -7,21 +7,24 @@ export class NodeDrawComponent implements IComponent {
   public Entity: Node
 
   public Awake(): void {
-    this.Clear()
+    CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
   }
 
   public Update(deltaTime: number): void {
-    this.Clear()
     this.Draw()
     this.DrawDebugInfo()
   }
 
   private Draw(): void {
-    CanvasLayer.Background.FillRect(
-      this.Entity.Start,
-      this.Entity.Size,
-      this.GetColor()
-    )
+    if(this.Entity.IsCorrupted){
+      CanvasLayer.Foreground.ClearRect(this.Entity.Start, this.Entity.Size)
+      CanvasLayer.Background.ClearRect(this.Entity.Start, this.Entity.Size)
+
+      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
+      CanvasLayer.Background.DrawImg('corrupted2.png', new Vector2D(this.Entity.Start.x + 3, this.Entity.Start.y + 3), new Vector2D(45, 46))
+    } else {
+      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
+    }
   }
 
   private GetColor(): Color {

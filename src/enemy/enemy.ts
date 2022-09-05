@@ -12,6 +12,10 @@ export class Enemy extends Entity {
   private _lastOccupationStarted = 0
   private _pathfinder: Pathfinder
   private _currentPath: Node[] = []
+  private _beingDestroyed = false
+  public get BeingDestroyed(): boolean {
+    return this._beingDestroyed
+  }
 
   public get CurrentPath(): Node[] {
     return this._currentPath
@@ -61,7 +65,7 @@ export class Enemy extends Entity {
     const currentTime = +(new Date())
     if(currentTime - this._lastOccupationStarted >= Settings.enemy.occupationTime){
       this.Node.Corrupt()
-      this.Kill()
+      this.Kill(false)
     }
   }
 
@@ -79,13 +83,18 @@ export class Enemy extends Entity {
     this._enemyDrawComponent.Clear()
   }
 
-  public Kill(): void {
-    this.ClearDraw()
-
+  public Kill(violently: boolean): void {
     this.Node.Enemy = null
+    this._currentPath = []
 
     this.ResetCorruptionTimer()
 
-    this._controller.Destroy(this)
+    if(violently){
+      this._beingDestroyed = true
+      this.RemoveComponent(EnemyLocomotionAnimatedComponent)
+    } else {
+      this.ClearDraw()
+      this._controller.Destroy(this)
+    }
   }
 }

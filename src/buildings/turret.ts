@@ -12,6 +12,10 @@ export class Turret extends Entity implements IBuilding {
   private _population = 0
   private _templateEml: HTMLElement
   private _defendersLeftElm: HTMLElement
+  private _beingDestroyed = false
+  public get BeingDestroyed(): boolean {
+    return this._beingDestroyed
+  }
 
   public get Population(): number {
     return this._population
@@ -63,7 +67,7 @@ export class Turret extends Entity implements IBuilding {
   }
 
   private Attack(enemy: Enemy): void{
-    enemy.Kill()
+    enemy.Kill(true)
 
     this._population--
   }

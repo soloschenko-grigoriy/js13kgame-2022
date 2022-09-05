@@ -15,17 +15,13 @@ export class HouseDrawComponent implements IComponent {
   }
 
   private Draw(): void {
-    CanvasLayer.Background.FillRect(
-      this.Entity.Node.Start,
-      this.Entity.Node.Size,
-      Settings.buildings.house.colors.bg
-    )
+    CanvasLayer.Background.DrawImg('house7.png', new Vector2D(this.Entity.Node.Start.x + 7, this.Entity.Node.Start.y + 4), new Vector2D(32, 38))
 
     CanvasLayer.Background.DrawText(
       this.Entity.Population.toString(),
-      new Vector2D(this.Entity.Node.Center.x - 7, this.Entity.Node.Center.y + 3),
-
-      Settings.buildings.house.colors.text
+      new Vector2D(this.Entity.Node.Center.x - 10, this.Entity.Node.Center.y - 10),
+      Settings.buildings.house.colors.text,
+      16
     )
   }
 }

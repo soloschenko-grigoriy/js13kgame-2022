@@ -38,6 +38,8 @@ export class House extends Entity implements IBuilding {
     this._templateEml = document.body.querySelector('#houseTemplate') as HTMLElement
     this._evacuationAmountElm = this._templateEml.querySelector('#evacAmount') as HTMLElement
     this._evacuateBtn = this._templateEml.querySelector('#evacBtn') as HTMLButtonElement
+
+    super.Awake()
   }
 
   public Update(deltaTime: number): void {

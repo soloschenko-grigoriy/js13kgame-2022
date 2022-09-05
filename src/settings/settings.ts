@@ -16,15 +16,15 @@ export const Settings = Object.freeze({
     color: new Color(55, 71, 79, 1),
     locomotion: {
       range: 3,
-      duration: 50
+      duration: 300
     },
-    occupationTime: 100,
-    spawnCooldown: 1
+    occupationTime: 1000,
+    spawnCooldown: 2
   },
   buildings: {
     turret: {
       colors: {
-        bg: new Color(255, 235, 59, 1),
+        bg: new Color(255, 235, 59, 0.),
         text: new Color(38, 50, 56, 1),
       },
       radius: 15,
@@ -34,14 +34,14 @@ export const Settings = Object.freeze({
     house: {
       colors: {
         bg: new Color(46, 125, 50, 1),
-        text: new Color(224, 224, 224, 1),
+        text: new Color(255, 255, 255, 1),
       },
-      amount: 2,
-      population: 10
+      amount: 10,
+      population: 50
     },
   },
   hiddenClassName: 'hidden',
-  evacuationAmount: 10,
+  evacuationAmount: 5,
   evacuationCooldown: 5,
   debugMode: false
 })

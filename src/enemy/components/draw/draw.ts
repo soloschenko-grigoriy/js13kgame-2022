@@ -12,32 +12,37 @@ export class EnemyDrawComponent implements IComponent {
       throw new Error('Attempt to draw a ship that has no Position')
     }
 
-    return position
+    return new Vector2D(position.x - Settings.grid.nodeSize / 2, position.y - Settings.grid.nodeSize / 2)
   }
 
   public Awake(): void {
-    this.Clear()
+    // this.Clear()
   }
 
   public Update(deltaTime: number): void {
-    this.Clear()
+    // this.Clear()
     this.Draw()
   }
 
   private Draw(): void {
-    CanvasLayer.Foreground.FillCircle(
-      this.Position,
-      Settings.enemy.radius,
-      Settings.enemy.color
-    )
+    CanvasLayer.Foreground.DrawImg('tank.png', this.Position, this.Entity.Node.Size)
+
+    if(this.Entity.BeingDestroyed){
+      CanvasLayer.Foreground.DrawImg('explosion.png', this.Position, this.Entity.Node.Size)
+      return
+    }
+
+    // CanvasLayer.Foreground.FillCircle(
+    //   this.Position,
+    //   Settings.enemy.radius,
+    //   Settings.enemy.color
+    // )
+
   }
 
   public Clear(): void {
     CanvasLayer.Foreground.ClearRect(
-      new Vector2D(
-        this.Position.x - Settings.grid.nodeSize / 2,
-        this.Position.y - Settings.grid.nodeSize / 2
-      ),
+      this.Position,
       new Vector2D(Settings.grid.nodeSize, Settings.grid.nodeSize)
     )
   }
