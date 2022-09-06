@@ -25,7 +25,7 @@ export const Settings = Object.freeze({
   buildings: {
     turret: {
       colors: {
-        bg: new Color(255, 235, 59, 0.),
+        bg: new Color(255, 235, 59, 0.25),
         text: new Color(38, 50, 56, 1),
       },
       radius: 15,

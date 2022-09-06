@@ -17,12 +17,12 @@ export class NodeDrawComponent implements IComponent {
 
   private Draw(): void {
     if(this.Entity.IsCorrupted){
-      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
-      CanvasLayer.Background.DrawImg('corrupted2.png', new Vector2D(this.Entity.Start.x + 8, this.Entity.Start.y + 10))
+      CanvasLayer.Background.DrawImg2('grass.png', this.Entity.Center, new Vector2D(3, 3))
+      CanvasLayer.Background.DrawImg2('corrupted2.png', this.Entity.Center)
       return
     }
 
-    CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
+    CanvasLayer.Background.DrawImg2('grass.png', this.Entity.Center, new Vector2D(3, 3))
   }
 
   private DrawDebugInfo(): void {

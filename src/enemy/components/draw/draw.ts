@@ -12,7 +12,7 @@ export class EnemyDrawComponent implements IComponent {
       throw new Error('E') // Attempt to draw a ship that has no Position
     }
 
-    return new Vector2D(position.x - Settings.grid.nodeSize / 2, position.y - Settings.grid.nodeSize / 2)
+    return position
   }
 
   public Awake(): void {
@@ -20,17 +20,29 @@ export class EnemyDrawComponent implements IComponent {
   }
 
   public Update(deltaTime: number): void {
-    CanvasLayer.Foreground.DrawImg('tank.png', this.Position, this.Entity.Node.Size)
+    this.Clear()
+    // const rotation = this._timeSinceRotation * 90
+    CanvasLayer.Foreground.DrawImg2(
+      'tank.png',
+      this.Position,
+      new Vector2D(0.75, 0.75),
+      90
+    )
+
+    // this._timeSinceRotation += deltaTime
+    // if(this._timeSinceRotation > 0.5){
+    //   this._timeSinceRotation = 1
+    // }
 
     if(this.Entity.State === EnemyState.Exploding){
-      CanvasLayer.Foreground.DrawImg('explosion.png', new Vector2D(this.Position.x + 12, this.Position.y + 5))
+      CanvasLayer.Foreground.DrawImg2('explosion.png', this.Position, new Vector2D(0.75, 0.75))
       return
     }
   }
 
   public Clear(): void {
     CanvasLayer.Foreground.ClearRect(
-      this.Position,
+      new Vector2D(this.Position.x - Settings.grid.nodeSize / 2, this.Position.y - Settings.grid.nodeSize / 2),
       new Vector2D(Settings.grid.nodeSize, Settings.grid.nodeSize)
     )
   }

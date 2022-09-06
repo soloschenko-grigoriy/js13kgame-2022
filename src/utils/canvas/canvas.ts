@@ -7,28 +7,28 @@ export class Canvas implements IAwake {
   private _atlasImg: HTMLImageElement
 
   private _atlasCoords = [{
-    'filename': 'corrupted2.png',
-    'frame': {'x':32,'y':102,'w':32,'h':33},
-  },
-  {
-    'filename': 'explosion.png',
-    'frame': {'x':40,'y':58,'w':23,'h':33},
-  },
-  {
-    'filename': 'grass.png',
-    'frame': {'x':46,'y':0,'w':16,'h':16},
-  },
-  {
-    'filename': 'house7.png',
-    'frame': {'x':0,'y':102,'w':32,'h':38},
-  },
-  {
-    'filename': 'tank.png',
-    'frame': {'x':0,'y':58,'w':40,'h':44},
-  },
-  {
-    'filename': 'turret3.png',
-    'frame': {'x':0,'y':0,'w':46,'h':58},
+    filename: 'corrupted2.png',
+    frame: {x:32,y:102,w:32,h:33},
+    },
+    {
+    filename: 'explosion.png',
+    frame: {x:40,y:58,w:23,h:33},
+    },
+    {
+    filename: 'grass.png',
+    frame: {x:46,y:0,w:16,h:16},
+    },
+    {
+    filename: 'house7.png',
+    frame: {x:0,y:102,w:32,h:38},
+    },
+    {
+    filename: 'tank.png',
+    frame: {x:0,y:58,w:40,h:44},
+    },
+    {
+    filename: 'turret3.png',
+    frame: {x:0,y:0,w:46,h:58},
   }]
 
   public get Element(): HTMLCanvasElement {
@@ -94,23 +94,60 @@ export class Canvas implements IAwake {
     this._ctx.fill()
   }
 
-  public DrawImg(filename: string, position: Vector2D, size?: Vector2D): void {
+  // public DrawImg(filename: string, position: Vector2D, size?: Vector2D): void {
+  //   const data = this._atlasCoords.find(item => item.filename === filename)
+  //   if(!data){
+  //     return
+  //   }
+
+  //   this._ctx.drawImage(
+  //     this._atlasImg,
+  //     data.frame.x,
+  //     data.frame.y,
+  //     data.frame.w,
+  //     data.frame.h,
+  //     position.x,
+  //     position.y,
+  //     size ? size.x : data.frame.w,
+  //     size ? size.y : data.frame.h
+  //   )
+  // }
+
+  public DrawImg2(filename: string, center: Vector2D, scale = new Vector2D(1, 1), rotation?: number): void {
     const data = this._atlasCoords.find(item => item.filename === filename)
     if(!data){
       return
     }
 
+    const { frame } = data
+    const size = new Vector2D(frame.w * scale.x, frame.h * scale.y)
+    const start = new Vector2D(center.x - size.x / 2, center.y - size.y / 2)
+    const pivot = new Vector2D(center.x, center.y)
+
+    if(rotation){
+      const angle = this.DegreeToRadians(rotation)
+      this._ctx.translate(pivot.x, pivot.y)
+      this._ctx.rotate(angle)
+      this._ctx.translate(-pivot.x, -pivot.y)
+    }
+
     this._ctx.drawImage(
       this._atlasImg,
-      data.frame.x,
-      data.frame.y,
-      data.frame.w,
-      data.frame.h,
-      position.x,
-      position.y,
-      size ? size.x : data.frame.w,
-      size ? size.y : data.frame.h
+      frame.x,
+      frame.y,
+      frame.w,
+      frame.h,
+      start.x,
+      start.y,
+      size.x,
+      size.y
     )
+
+    if(rotation){
+      this._ctx.translate(pivot.x, pivot.y)
+      this._ctx.rotate(-this.DegreeToRadians(rotation))
+      this._ctx.translate(-pivot.x, -pivot.y)
+    }
   }
 
   public SetStyle(style: Partial<CSSStyleDeclaration>): void {

@@ -15,7 +15,10 @@ export class HouseDrawComponent implements IComponent {
   }
 
   private Draw(): void {
-    CanvasLayer.Background.DrawImg('house7.png', new Vector2D(this.Entity.Node.Start.x + 7, this.Entity.Node.Start.y + 4), new Vector2D(32, 38))
+    CanvasLayer.Background.DrawImg2(
+      'house7.png',
+      this.Entity.Node.Center,
+    )
 
     CanvasLayer.Background.DrawText(
       this.Entity.Population.toString(),
