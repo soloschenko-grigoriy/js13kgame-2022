@@ -2,6 +2,7 @@ import { Entity, Vector2D, IGraph, IGraphNode } from '@/utils'
 import { Node } from '@/node'
 import { Settings } from '@/settings'
 import { GridOnclickComponent } from './components'
+import { Direction } from './direction'
 
 export class Grid extends Entity implements IGraph {
   private _nodes: Node[] = []
@@ -81,5 +82,26 @@ export class Grid extends Entity implements IGraph {
         this._nodes.push(node)
       }
     }
+  }
+
+  public static CalcRotationToLooAt(from: Node, to: Node): Direction {
+    if(from.Index.x === to.Index.x){ // same row
+      if(from.Index.y > to.Index.y){
+        return Direction.Up
+      }
+
+      return Direction.Down
+    }
+
+    if(from.Index.y === to.Index.y){ // same column
+      if(from.Index.x > to.Index.x){
+        return Direction.Left
+      }
+
+      return Direction.Right
+    }
+
+    // cannot look diagonally, return any
+    return Direction.Up
   }
 }

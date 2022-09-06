@@ -3,7 +3,6 @@ import { TurretDrawComponent, TurretExplosionComponent } from './components'
 import { Settings } from '@/settings'
 import { Entity } from '@/utils'
 import { IBuilding } from './building.h'
-import { Enemy } from '@/enemy'
 import { Nation } from '@/nation'
 import { House } from './house'
 import { Game } from '@/game'
@@ -14,6 +13,7 @@ export class Turret extends Entity implements IBuilding {
   private _templateEml: HTMLElement
   private _defendersLeftElm: HTMLElement
   private _state = BuildingState.Idle
+  private _nodeWithEnemyToAttack: Node | null
 
   public get State(): BuildingState {
     return this._state
@@ -27,10 +27,14 @@ export class Turret extends Entity implements IBuilding {
     return this._node
   }
 
-  constructor(protected readonly _node: Node, private readonly _nation: Nation, moveFrom: House){
+  public get NodeWithEnemyToAttack(): Node | null {
+    return this._nodeWithEnemyToAttack
+  }
+
+  constructor(protected readonly _node: Node, private readonly _nation: Nation, movePeopleFrom: House){
     super()
 
-    moveFrom.Move(Settings.buildings.turret.population, this)
+    movePeopleFrom.Move(Settings.buildings.turret.population, this)
   }
 
   public Awake(): void {
@@ -50,9 +54,10 @@ export class Turret extends Entity implements IBuilding {
       return
     }
 
-    const neighborWithEnemy = this._node.Neighbors.find(n => !!n.Enemy)
+    const neighborWithEnemy = this._node.Neighbors.find(n => !!n.Enemy && !n.Enemy.AttackedFrom)
     if(neighborWithEnemy && neighborWithEnemy.Enemy){
-      this.Attack(neighborWithEnemy.Enemy)
+      this._nodeWithEnemyToAttack = neighborWithEnemy
+      this.Attack()
     }
   }
 
@@ -73,8 +78,12 @@ export class Turret extends Entity implements IBuilding {
     this._node.Release()
   }
 
-  private Attack(enemy: Enemy): void{
-    enemy.Attack()
+  private Attack(): void{
+    if(!this._nodeWithEnemyToAttack || !this._nodeWithEnemyToAttack.Enemy){
+      return
+    }
+
+    this._nodeWithEnemyToAttack.Enemy.Attack(this._node)
     this._population--
     this._nation.ReduceTotalPopulation(1)
 

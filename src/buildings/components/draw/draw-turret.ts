@@ -3,6 +3,7 @@ import { CanvasLayer } from '@/canvas-layer'
 import { Settings } from '@/settings'
 import { Turret } from '@/buildings/turret'
 import { BuildingState } from '@/buildings/state'
+import { Direction, Grid } from '@/grid'
 
 export class TurretDrawComponent implements IComponent {
   public Entity: Turret
@@ -25,11 +26,18 @@ export class TurretDrawComponent implements IComponent {
       return
     }
 
+    let angle = 0
+    if(this.Entity.NodeWithEnemyToAttack){
+      const lookAt = Grid.CalcRotationToLooAt(this.Entity.Node, this.Entity.NodeWithEnemyToAttack)
+      console.log(lookAt)
+      angle = this.CalcDirectionToAngle(lookAt)
+    }
+
     CanvasLayer.Background.DrawImg2(
       'turret3.png',
       this.Entity.Node.Center,
       new Vector2D(0.5, 0.5),
-      270
+      angle
     )
 
     // CanvasLayer.Background.FillSector(
@@ -71,5 +79,14 @@ export class TurretDrawComponent implements IComponent {
     }
 
     return -90
+  }
+
+  private CalcDirectionToAngle(direction: Direction): number {
+    switch(direction){
+      case Direction.Up: return 0
+      case Direction.Right: return 90
+      case Direction.Down: return 180
+      case Direction.Left: return -90
+    }
   }
 }

@@ -15,6 +15,7 @@ export class Enemy extends Entity {
   private _pathfinder: Pathfinder
   private _currentPath: Node[] = []
   private _state = EnemyState.Running
+  private _attackedFrom: Node | null = null
 
   public get State(): EnemyState {
     return this._state
@@ -30,6 +31,10 @@ export class Enemy extends Entity {
 
   public get Position(): Vector2D | null {
     return this._locomotionComponent.Position
+  }
+
+  public get AttackedFrom():Node | null {
+    return this._attackedFrom
   }
 
   constructor(node: Node, private readonly _controller: EnemyController) {
@@ -97,7 +102,8 @@ export class Enemy extends Entity {
     this._controller.Destroy(this)
   }
 
-  public Attack(): void {
+  public Attack(from: Node): void {
+    this._attackedFrom = from
     this.Node.Enemy = null
     this._currentPath = []
     this._locomotionComponent.Stop()
