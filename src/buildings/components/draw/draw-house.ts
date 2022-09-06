@@ -24,4 +24,8 @@ export class HouseDrawComponent implements IComponent {
       16
     )
   }
+
+  public Clear(): void {
+    CanvasLayer.Background.ClearRect(this.Entity.Node.Start, this.Entity.Node.Size)
+  }
 }

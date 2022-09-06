@@ -10,12 +10,6 @@ import { NodeDrawComponent } from './components'
 export class Node extends Entity implements IGraphNode {
   public IsOnPath = false
   public Enemy: Enemy | null = null
-  public get Building() : IBuilding | null {
-    return this._building
-  }
-  public get IsCorrupted(): boolean {
-    return this._isCorrupted
-  }
 
   private readonly _drawComponent: NodeDrawComponent
   private _building: IBuilding | null = null
@@ -24,6 +18,14 @@ export class Node extends Entity implements IGraphNode {
   private _templateCorruptedEml: HTMLElement
   private _buildTowerBtn: HTMLButtonElement
   private _onBuildTower = ():void => this.BuildTower()
+
+  public get Building() : IBuilding | null {
+    return this._building
+  }
+
+  public get IsCorrupted(): boolean {
+    return this._isCorrupted
+  }
 
   public get Size(): Vector2D {
     return new Vector2D(
@@ -43,6 +45,14 @@ export class Node extends Entity implements IGraphNode {
     return this.Index
   }
 
+  public get IsGoodNextTarget(): boolean {
+    return !this.Enemy && !this.IsCorrupted
+  }
+
+  public get IsAccessible(): boolean {
+    return !this._building || !(this._building instanceof Turret)
+  }
+
   constructor(
     public readonly Start: Vector2D,
     public readonly End: Vector2D,
@@ -52,10 +62,6 @@ export class Node extends Entity implements IGraphNode {
     super()
 
     this._drawComponent = new NodeDrawComponent()
-  }
-
-  public get IsGoodNextTarget(): boolean {
-    return !this.Enemy && !this.IsCorrupted
   }
 
   public Awake(): void {
@@ -98,7 +104,9 @@ export class Node extends Entity implements IGraphNode {
   public Corrupt(): void {
     this._isCorrupted = true
     this._building?.Destroy()
+  }
 
+  public Release(): void {
     this._building = null
   }
 

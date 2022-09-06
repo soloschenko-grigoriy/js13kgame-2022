@@ -81,6 +81,10 @@ export class Pathfinder {
       }
 
       for (const next of this._graph.GetNeighborsOf(current)) {
+        if (!next.IsAccessible){
+          continue
+        }
+
         const newCost = costSoFar[current.Position.AsString()] + this._graph.GetCost(current, next)
         const nextStr = next.Position.AsString()
         if (typeof costSoFar[nextStr] === 'undefined' || newCost < costSoFar[nextStr]){

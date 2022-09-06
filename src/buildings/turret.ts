@@ -1,5 +1,5 @@
 import { Node } from '@/node'
-import { TurretDrawComponent } from './components'
+import { TurretDrawComponent, TurretExplosionComponent } from './components'
 import { Settings } from '@/settings'
 import { Entity } from '@/utils'
 import { IBuilding } from './building.h'
@@ -7,14 +7,16 @@ import { Enemy } from '@/enemy'
 import { Nation } from '@/nation'
 import { House } from './house'
 import { Game } from '@/game'
+import { BuildingState } from './state'
 
 export class Turret extends Entity implements IBuilding {
   private _population = 0
   private _templateEml: HTMLElement
   private _defendersLeftElm: HTMLElement
-  private _beingDestroyed = false
-  public get BeingDestroyed(): boolean {
-    return this._beingDestroyed
+  private _state = BuildingState.Idle
+
+  public get State(): BuildingState {
+    return this._state
   }
 
   public get Population(): number {
@@ -33,6 +35,8 @@ export class Turret extends Entity implements IBuilding {
 
   public Awake(): void {
     this.AddComponent(new TurretDrawComponent())
+    this.AddComponent(new TurretExplosionComponent())
+
     this._nation.ReduceTotalPopulation(this._population)
 
     this._templateEml = document.body.querySelector('#tower') as HTMLElement
@@ -42,7 +46,7 @@ export class Turret extends Entity implements IBuilding {
   public Update(deltaTime: number): void {
     super.Update(deltaTime)
 
-    if(this._population < 1){
+    if(this._state === BuildingState.Exploding){
       return
     }
 
@@ -62,13 +66,21 @@ export class Turret extends Entity implements IBuilding {
   }
 
   public Destroy(): void {
-    this._nation.ReduceTotalPopulation(this._population)
-    console.log(`Turret destroyed, ${this._population} people died`)
+    // console.log(`Turret destroyed, ${this._population} people died`)
+    this.GetComponent(TurretDrawComponent).Clear()
+    this.RemoveComponent(TurretDrawComponent)
+
+    this._node.Release()
   }
 
   private Attack(enemy: Enemy): void{
-    enemy.Kill(true)
-
+    enemy.Attack()
     this._population--
+    this._nation.ReduceTotalPopulation(1)
+
+
+    if(this._population < 1){
+      this._state = BuildingState.Exploding
+    }
   }
 }

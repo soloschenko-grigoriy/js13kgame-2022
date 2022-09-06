@@ -32,6 +32,10 @@ export class Game extends Entity {
     return this._nation
   }
 
+  public get Grid(): Grid {
+    return this._grid
+  }
+
   public get IsModalOpen(): boolean {
     return this._isModalOpen
   }

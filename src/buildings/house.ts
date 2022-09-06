@@ -61,7 +61,11 @@ export class House extends Entity implements IBuilding {
 
   public Destroy(): void {
     this._nation.ReduceTotalPopulation(this._population)
-    console.log(`House destroyed, ${this._population} people died`)
+    // console.log(`House destroyed, ${this._population} people died`)
+    this.GetComponent(HouseDrawComponent).Clear()
+    this.RemoveComponent(HouseDrawComponent)
+
+    this._node.Release()
   }
 
   public ShowModal(): void {

@@ -2,6 +2,7 @@ import { IComponent, Vector2D } from '@/utils'
 import { CanvasLayer } from '@/canvas-layer'
 import { Settings } from '@/settings'
 import { Turret } from '@/buildings/turret'
+import { BuildingState } from '@/buildings/state'
 
 export class TurretDrawComponent implements IComponent {
   public Entity: Turret
@@ -15,7 +16,7 @@ export class TurretDrawComponent implements IComponent {
   }
 
   private Draw(): void {
-    if(this.Entity.BeingDestroyed){
+    if(this.Entity.State === BuildingState.Exploding){
       CanvasLayer.Background.DrawImg('explosion.png', new Vector2D(this.Entity.Node.Start.x + 12, this.Entity.Node.Start.y + 5))
       return
     }
@@ -27,6 +28,10 @@ export class TurretDrawComponent implements IComponent {
       Settings.buildings.turret.colors.text,
       16
     )
+  }
+
+  public Clear(): void {
+    CanvasLayer.Background.ClearRect(this.Entity.Node.Start, this.Entity.Node.Size)
   }
 
   private get DegreeForCharge(): number {

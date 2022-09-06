@@ -1,6 +1,6 @@
 import { IComponent, Vector2D } from '@/utils'
 import { CanvasLayer } from '@/canvas-layer'
-import { Enemy } from '@/enemy'
+import { Enemy, EnemyState } from '@/enemy'
 import { Settings } from '@/settings'
 
 export class EnemyDrawComponent implements IComponent {
@@ -20,14 +20,9 @@ export class EnemyDrawComponent implements IComponent {
   }
 
   public Update(deltaTime: number): void {
-    // this.Clear()
-    this.Draw()
-  }
-
-  private Draw(): void {
     CanvasLayer.Foreground.DrawImg('tank.png', this.Position, this.Entity.Node.Size)
 
-    if(this.Entity.BeingDestroyed){
+    if(this.Entity.State === EnemyState.Exploding){
       CanvasLayer.Foreground.DrawImg('explosion.png', new Vector2D(this.Position.x + 12, this.Position.y + 5))
       return
     }

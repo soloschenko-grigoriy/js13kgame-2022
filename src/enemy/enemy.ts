@@ -1,10 +1,12 @@
 import { Entity, Vector2D } from '@/utils'
-import { EnemyDrawComponent, EnemyLocomotionAnimatedComponent } from './components'
+import { EnemyDrawComponent, EnemyLocomotionAnimatedComponent, EnemyExplosionComponent } from './components'
 import { Node } from '@/node'
 import { Grid } from '@/grid'
 import { EnemyController } from '@/enemy-controller'
 import { Settings } from '@/settings'
 import { Pathfinder } from '@/pathfinder'
+import { EnemyState } from './state'
+import { Game } from '@/game'
 
 export class Enemy extends Entity {
   private readonly _locomotionComponent: EnemyLocomotionAnimatedComponent
@@ -12,17 +14,14 @@ export class Enemy extends Entity {
   private _lastOccupationStarted = 0
   private _pathfinder: Pathfinder
   private _currentPath: Node[] = []
-  private _beingDestroyed = false
-  public get BeingDestroyed(): boolean {
-    return this._beingDestroyed
+  private _state = EnemyState.Running
+
+  public get State(): EnemyState {
+    return this._state
   }
 
   public get CurrentPath(): Node[] {
     return this._currentPath
-  }
-
-  public get Grid(): Grid {
-    return this._controller.Grid
   }
 
   public get Node(): Node {
@@ -36,7 +35,7 @@ export class Enemy extends Entity {
   constructor(node: Node, private readonly _controller: EnemyController) {
     super()
 
-    this._pathfinder = new Pathfinder(this.Grid, Grid.Heuristic)
+    this._pathfinder = new Pathfinder(Game.GetInstance().Grid, Grid.Heuristic)
 
     this._locomotionComponent = new EnemyLocomotionAnimatedComponent(node)
     this._enemyDrawComponent = new EnemyDrawComponent()
@@ -45,12 +44,17 @@ export class Enemy extends Entity {
   public Awake(): void {
     this.AddComponent(this._locomotionComponent)
     this.AddComponent(this._enemyDrawComponent)
+    this.AddComponent(new EnemyExplosionComponent())
 
     super.Awake()
   }
 
   public Update(deltaTime: number): void {
     super.Update(deltaTime)
+
+    if(this._state === EnemyState.Exploding){
+      return
+    }
 
     if(this.Node.IsCorrupted && this._currentPath.length < 1){
       this.DeterminePathToNext(this.Node)
@@ -65,7 +69,7 @@ export class Enemy extends Entity {
     const currentTime = +(new Date())
     if(currentTime - this._lastOccupationStarted >= Settings.enemy.occupationTime){
       this.Node.Corrupt()
-      this.Kill(false)
+      this.Kill()
     }
   }
 
@@ -83,18 +87,20 @@ export class Enemy extends Entity {
     this._enemyDrawComponent.Clear()
   }
 
-  public Kill(violently: boolean): void {
+  public Kill(): void {
+    this.Node.Enemy = null
+    this.ResetCorruptionTimer()
+    this.ClearDraw()
+    this.RemoveComponent(EnemyDrawComponent)
+    this.RemoveComponent(EnemyLocomotionAnimatedComponent)
+
+    this._controller.Destroy(this)
+  }
+
+  public Attack(): void {
     this.Node.Enemy = null
     this._currentPath = []
-
-    this.ResetCorruptionTimer()
-
-    if(violently){
-      this._beingDestroyed = true
-      this.RemoveComponent(EnemyLocomotionAnimatedComponent)
-    } else {
-      this.ClearDraw()
-      this._controller.Destroy(this)
-    }
+    this._locomotionComponent.Stop()
+    this._state = EnemyState.Exploding
   }
 }

@@ -59,7 +59,7 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
     }
   }
 
-  public Clear(): void {
+  public Stop(): void {
     this._isInProgress = false
   }
 }

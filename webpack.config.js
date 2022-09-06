@@ -30,7 +30,7 @@ module.exports = {
       }
     ]
   },
-  mode: 'production',
+  mode: 'development',
   devtool: 'source-map', // comment before compressing
   devServer: { // comment before compressing
     hot: true,
@@ -47,12 +47,12 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
-        terserOptions: {
-          ecma: 'ESNext',
-          mangle: {
-            properties: true
-          },
-        }
+        // terserOptions: {
+        //   // ecma: 'ESNext',
+        //   mangle: {
+        //     properties: true
+        //   },
+        // }
       }),
     ],
   },
