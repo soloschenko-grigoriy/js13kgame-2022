@@ -67,6 +67,14 @@ export class Canvas implements IAwake {
     this._ctx.fill()
   }
 
+  public DrawRect(start: Vector2D, size: Vector2D, color: Color, width = 2): void {
+    this._ctx.beginPath()
+    this._ctx.lineWidth = width
+    this._ctx.strokeStyle = color.AsString()
+    this._ctx.rect(start.x, start.y, size.x, size.y)
+    this._ctx.stroke()
+  }
+
   public ClearRect(start: Vector2D, size: Vector2D): void {
     this._ctx.clearRect(start.x, start.y, size.x, size.y)
   }
@@ -94,24 +102,24 @@ export class Canvas implements IAwake {
     this._ctx.fill()
   }
 
-  // public DrawImg(filename: string, position: Vector2D, size?: Vector2D): void {
-  //   const data = this._atlasCoords.find(item => item.filename === filename)
-  //   if(!data){
-  //     return
-  //   }
+  public DrawImg(filename: string, position: Vector2D, size?: Vector2D): void {
+    const data = this._atlasCoords.find(item => item.filename === filename)
+    if(!data){
+      return
+    }
 
-  //   this._ctx.drawImage(
-  //     this._atlasImg,
-  //     data.frame.x,
-  //     data.frame.y,
-  //     data.frame.w,
-  //     data.frame.h,
-  //     position.x,
-  //     position.y,
-  //     size ? size.x : data.frame.w,
-  //     size ? size.y : data.frame.h
-  //   )
-  // }
+    this._ctx.drawImage(
+      this._atlasImg,
+      data.frame.x,
+      data.frame.y,
+      data.frame.w,
+      data.frame.h,
+      position.x,
+      position.y,
+      size ? size.x : data.frame.w,
+      size ? size.y : data.frame.h
+    )
+  }
 
   public DrawImg2(filename: string, center: Vector2D, scale = new Vector2D(1, 1), rotation?: number): void {
     const data = this._atlasCoords.find(item => item.filename === filename)

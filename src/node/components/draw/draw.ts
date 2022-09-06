@@ -11,18 +11,28 @@ export class NodeDrawComponent implements IComponent {
   }
 
   public Update(deltaTime: number): void {
+    // this.Clean()
     this.Draw()
     this.DrawDebugInfo()
   }
 
   private Draw(): void {
     if(this.Entity.IsCorrupted){
-      CanvasLayer.Background.DrawImg2('grass.png', this.Entity.Center, new Vector2D(3, 3))
+      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
       CanvasLayer.Background.DrawImg2('corrupted2.png', this.Entity.Center)
-      return
+    } else {
+      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
     }
 
-    CanvasLayer.Background.DrawImg2('grass.png', this.Entity.Center, new Vector2D(3, 3))
+    // CanvasLayer.Foreground.ClearRect(this.Entity.Start, this.Entity.Size)
+    if(this.Entity.isHovered){
+      CanvasLayer.Background.DrawRect(this.Entity.Start, new Vector2D(this.Entity.Size.x - 2, this.Entity.Size.y - 2), Settings.grid.color.hover)
+      // CanvasLayer.Foreground.FillRect(this.Entity.Start, new Vector2D(this.Entity.Size.x - 2, this.Entity.Size.y - 2), Settings.grid.color.hover)
+    }
+  }
+
+  private Clean(): void {
+    CanvasLayer.Background.ClearRect(this.Entity.Start, this.Entity.Size)
   }
 
   private DrawDebugInfo(): void {

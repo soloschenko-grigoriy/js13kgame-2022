@@ -79,9 +79,9 @@ export class Enemy extends Entity {
   }
 
   public DeterminePathToNext(node: Node): void {
-    this._currentPath.forEach(item => item.IsOnPath = false)
+    this._currentPath.forEach(item => item.isOnPath = false)
     this._currentPath = this._pathfinder.CalculatePath(node) as Node[]
-    this._currentPath.forEach(item => item.IsOnPath = true)
+    this._currentPath.forEach(item => item.isOnPath = true)
   }
 
   public ResetCorruptionTimer(): void {

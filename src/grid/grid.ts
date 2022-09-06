@@ -1,7 +1,7 @@
 import { Entity, Vector2D, IGraph, IGraphNode } from '@/utils'
 import { Node } from '@/node'
 import { Settings } from '@/settings'
-import { GridOnclickComponent } from './components'
+import { GridOnclickComponent, GridOnhoverComponent } from './components'
 import { Direction } from './direction'
 
 export class Grid extends Entity implements IGraph {
@@ -15,6 +15,7 @@ export class Grid extends Entity implements IGraph {
 
   public Awake(): void {
     this.AddComponent(new GridOnclickComponent())
+    this.AddComponent(new GridOnhoverComponent())
 
     // awake components
     super.Awake()

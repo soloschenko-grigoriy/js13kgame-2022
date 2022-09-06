@@ -48,7 +48,7 @@ export class EnemyLocomotionAnimatedComponent extends EnemyLocomotionComponent {
     this._previousPosition = this._currentPosition
     if (progress >= 1) {
       this.Entity.CurrentPath.shift()
-      next.IsOnPath = false
+      next.isOnPath = false
 
       this._isInProgress = false
       this._previousPosition = this._currentPosition

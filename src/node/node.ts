@@ -8,7 +8,8 @@ import { Entity, Vector2D, IGraphNode } from '@/utils'
 import { NodeDrawComponent } from './components'
 
 export class Node extends Entity implements IGraphNode {
-  public IsOnPath = false
+  public isOnPath = false
+  public isHovered = false
   public Enemy: Enemy | null = null
 
   private readonly _drawComponent: NodeDrawComponent

@@ -4,11 +4,9 @@ export const Settings = Object.freeze({
   grid: {
     dimension: 11,
     nodeSize: 50,
-    nodeOffset: 1,
+    nodeOffset: 0.00001,
     color: {
-      regular: new Color(245, 245, 245, 1),
-      onPath: new Color(239, 154, 154, 1),
-      corrupted:  new Color(244, 67, 54, 1)
+      hover: new Color(255, 255, 114, 1),
     }
   },
   enemy: {
