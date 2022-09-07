@@ -11,7 +11,7 @@ export class NodeDrawComponent implements IComponent {
   }
 
   public Update(deltaTime: number): void {
-    // this.Clean()
+    this.Clean()
     this.Draw()
     this.DrawDebugInfo()
   }
@@ -19,7 +19,7 @@ export class NodeDrawComponent implements IComponent {
   private Draw(): void {
     if(this.Entity.IsCorrupted){
       CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
-      CanvasLayer.Background.DrawImg2('corrupted2.png', this.Entity.Center)
+      CanvasLayer.Background.DrawImg2('mark.png', this.Entity.Center, new Vector2D(0.75, 0.75))
     } else {
       CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
     }

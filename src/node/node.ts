@@ -140,6 +140,11 @@ export class Node extends Entity implements IGraphNode {
       return
     }
 
+    if(this.Enemy){
+      this.Enemy.ShowModal()
+      return
+    }
+
     Game.GetInstance().ShowModal(this._templateBuildEml)
 
     this._buildTowerBtn = this._templateBuildEml.querySelector('#buildTowerBtn') as HTMLButtonElement

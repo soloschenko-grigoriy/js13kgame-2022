@@ -12,6 +12,7 @@ export class Enemy extends Entity {
   private readonly _locomotionComponent: EnemyLocomotionAnimatedComponent
   private readonly _enemyDrawComponent: EnemyDrawComponent
   private _lastOccupationStarted = 0
+  private _templatedEml: HTMLElement
   private _pathfinder: Pathfinder
   private _currentPath: Node[] = []
   private _state = EnemyState.Running
@@ -50,6 +51,8 @@ export class Enemy extends Entity {
     this.AddComponent(this._locomotionComponent)
     this.AddComponent(this._enemyDrawComponent)
     this.AddComponent(new EnemyExplosionComponent())
+
+    this._templatedEml = document.body.querySelector('#enemy') as HTMLElement
 
     super.Awake()
   }
@@ -108,5 +111,9 @@ export class Enemy extends Entity {
     this._currentPath = []
     this._locomotionComponent.Stop()
     this._state = EnemyState.Exploding
+  }
+
+  public ShowModal(): void {
+    Game.GetInstance().ShowModal(this._templatedEml)
   }
 }

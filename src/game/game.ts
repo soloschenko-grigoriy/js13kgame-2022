@@ -182,7 +182,6 @@ export class Game extends Entity {
     this._finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
 
     this._state = GameState.Over
-    console.log('game is done for')
 
     setTimeout(() => {
       this.ShowModal(template)

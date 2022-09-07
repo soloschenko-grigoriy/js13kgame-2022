@@ -63,7 +63,7 @@ export class Nation extends Entity {
     this._elapsedSinceLastEvacuation = 0
     this._timeTillNextEvacuation = Settings.evacuationCooldown
 
-    console.log(`You saved ${people} !`)
+    // console.log(`You saved ${people} !`)
   }
 
   public GetRandomHouseWithPopulation(population: number): House | undefined {

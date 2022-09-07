@@ -1,9 +1,9 @@
 import { IComponent, Vector2D } from '@/utils'
 import { CanvasLayer } from '@/canvas-layer'
 import { Settings } from '@/settings'
-import { Turret } from '@/buildings/turret'
-import { BuildingState } from '@/buildings/state'
 import { Direction, Grid } from '@/grid'
+import { Turret } from '../../turret'
+import { BuildingState } from '../../state'
 
 export class TurretDrawComponent implements IComponent {
   public Entity: Turret
@@ -29,14 +29,13 @@ export class TurretDrawComponent implements IComponent {
     let angle = 0
     if(this.Entity.NodeWithEnemyToAttack){
       const lookAt = Grid.CalcRotationToLooAt(this.Entity.Node, this.Entity.NodeWithEnemyToAttack)
-      console.log(lookAt)
       angle = this.CalcDirectionToAngle(lookAt)
     }
 
     CanvasLayer.Background.DrawImg2(
-      'turret3.png',
+      'turret.png',
       this.Entity.Node.Center,
-      new Vector2D(0.5, 0.5),
+      new Vector2D(0.75, 0.75),
       angle
     )
 

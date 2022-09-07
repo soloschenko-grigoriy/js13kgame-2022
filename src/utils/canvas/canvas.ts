@@ -7,28 +7,52 @@ export class Canvas implements IAwake {
   private _atlasImg: HTMLImageElement
 
   private _atlasCoords = [{
-    filename: 'corrupted2.png',
-    frame: {x:32,y:102,w:32,h:33},
-    },
-    {
-    filename: 'explosion.png',
-    frame: {x:40,y:58,w:23,h:33},
-    },
-    {
-    filename: 'grass.png',
-    frame: {x:46,y:0,w:16,h:16},
-    },
-    {
-    filename: 'house7.png',
-    frame: {x:0,y:102,w:32,h:38},
-    },
-    {
-    filename: 'tank.png',
-    frame: {x:0,y:58,w:40,h:44},
-    },
-    {
-    filename: 'turret3.png',
-    frame: {x:0,y:0,w:46,h:58},
+    'filename': 'explosion.png',
+    'frame': {'x':16,'y':0,'w':23,'h':33},
+    'rotated': false,
+    'trimmed': true,
+    'spriteSourceSize': {'x':3,'y':4,'w':23,'h':33},
+    'sourceSize': {'w':29,'h':40}
+  },
+  {
+    'filename': 'grass.png',
+    'frame': {'x':0,'y':0,'w':16,'h':16},
+    'rotated': false,
+    'trimmed': false,
+    'spriteSourceSize': {'x':0,'y':0,'w':16,'h':16},
+    'sourceSize': {'w':16,'h':16}
+  },
+  {
+    'filename': 'house.png',
+    'frame': {'x':0,'y':33,'w':32,'h':38},
+    'rotated': false,
+    'trimmed': false,
+    'spriteSourceSize': {'x':0,'y':0,'w':32,'h':38},
+    'sourceSize': {'w':32,'h':38}
+  },
+  {
+    'filename': 'mark.png',
+    'frame': {'x':0,'y':115,'w':50,'h':50},
+    'rotated': false,
+    'trimmed': false,
+    'spriteSourceSize': {'x':0,'y':0,'w':50,'h':50},
+    'sourceSize': {'w':50,'h':50}
+  },
+  {
+    'filename': 'tank.png',
+    'frame': {'x':0,'y':71,'w':40,'h':44},
+    'rotated': false,
+    'trimmed': false,
+    'spriteSourceSize': {'x':0,'y':0,'w':40,'h':44},
+    'sourceSize': {'w':40,'h':44}
+  },
+  {
+    'filename': 'turret.png',
+    'frame': {'x':0,'y':165,'w':46,'h':58},
+    'rotated': false,
+    'trimmed': true,
+    'spriteSourceSize': {'x':6,'y':0,'w':46,'h':58},
+    'sourceSize': {'w':58,'h':58}
   }]
 
   public get Element(): HTMLCanvasElement {
