@@ -22,6 +22,7 @@ export class Game extends Entity {
   private _templateEml: HTMLElement
   private _closeModalBtn: HTMLButtonElement
   private _onClose = ():void => this.HideModal()
+  private _onCancel: (() => void) | undefined
   private _entities: Entity[] = []
   private _state: GameState = GameState.Init
   private readonly _grid: Grid
@@ -121,10 +122,12 @@ export class Game extends Entity {
     window.requestAnimationFrame(() => this.Update())
   }
 
-  public ShowModal(template: HTMLElement): void {
+  public ShowModal(template: HTMLElement, onCancel?: () => void): void {
     if(this._isModalOpen){
       return
     }
+
+    this._onCancel = onCancel
 
     this._isModalOpen = true
     this.Pause()
@@ -142,6 +145,8 @@ export class Game extends Entity {
   }
 
   public HideModal(): void {
+    this._onCancel?.()
+
     this._modalElm.classList.add(Settings.hiddenClassName)
     this._templateEml.classList.add(Settings.hiddenClassName)
 

@@ -145,7 +145,7 @@ export class Node extends Entity implements IGraphNode {
       return
     }
 
-    Game.GetInstance().ShowModal(this._templateBuildEml)
+    Game.GetInstance().ShowModal(this._templateBuildEml, () => this.OnModalClose())
 
     this._buildTowerBtn = this._templateBuildEml.querySelector('#buildTowerBtn') as HTMLButtonElement
     this._buildTowerBtn.addEventListener('click', this._onBuildTower)
@@ -173,9 +173,13 @@ export class Node extends Entity implements IGraphNode {
   }
 
   private HideModal(): void {
-    this._buildTowerBtn.removeEventListener('click', this._onBuildTower)
+    this.OnModalClose()
     this._buildTowerBtn.removeAttribute('disabled')
 
     Game.GetInstance().HideModal()
+  }
+
+  private OnModalClose(): void {
+    this._buildTowerBtn.removeEventListener('click', this._onBuildTower)
   }
 }

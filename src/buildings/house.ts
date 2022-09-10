@@ -72,7 +72,7 @@ export class House extends Entity implements IBuilding {
     this._evacuationAmountElm.innerText = this.GetEvacuationAmount().toString()
     this._evacuateBtn.addEventListener('click', this._onEvacuate)
 
-    Game.GetInstance().ShowModal(this._templateEml)
+    Game.GetInstance().ShowModal(this._templateEml, () => this.OnModalClose())
 
     if(!this._canEvacuate){
       this._evacuateBtn.setAttribute('disabled', 'disabled')
@@ -82,7 +82,7 @@ export class House extends Entity implements IBuilding {
   }
 
   private HideModal(): void {
-    this._evacuateBtn.removeEventListener('click', this._onEvacuate)
+    this.OnModalClose()
     this._evacuateBtn.removeAttribute('disabled')
 
     Game.GetInstance().HideModal()
@@ -111,5 +111,9 @@ export class House extends Entity implements IBuilding {
     }
 
     return amount
+  }
+
+  private OnModalClose(): void {
+    this._evacuateBtn.removeEventListener('click', this._onEvacuate)
   }
 }
