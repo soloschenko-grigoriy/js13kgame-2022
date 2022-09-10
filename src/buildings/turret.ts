@@ -85,8 +85,6 @@ export class Turret extends Entity implements IBuilding {
 
     this._nodeWithEnemyToAttack.Enemy.Attack(this._node)
     this._population--
-    this._nation.ReduceTotalPopulation(1)
-
 
     if(this._population < 1){
       this._state = BuildingState.Exploding

@@ -9,7 +9,6 @@ import { Game } from '@/game'
 export class House extends Entity implements IBuilding {
   private _population = 0
   private _templateEml: HTMLElement
-  private _evacuationAmountElm: HTMLElement
   private _evacuateBtn: HTMLButtonElement
   private _onEvacuate = ():void => this.Evacuate()
 
@@ -36,7 +35,6 @@ export class House extends Entity implements IBuilding {
 
     // safe to cast since im sure elm is there... oh sweet naiveté!
     this._templateEml = document.body.querySelector('#houseTemplate') as HTMLElement
-    this._evacuationAmountElm = this._templateEml.querySelector('#evacAmount') as HTMLElement
     this._evacuateBtn = this._templateEml.querySelector('#evacBtn') as HTMLButtonElement
 
     super.Awake()
@@ -69,14 +67,14 @@ export class House extends Entity implements IBuilding {
   }
 
   public ShowModal(): void {
-    this._evacuationAmountElm.innerText = this.GetEvacuationAmount().toString()
-    this._evacuateBtn.addEventListener('click', this._onEvacuate)
-
     Game.GetInstance().ShowModal(this._templateEml, () => this.OnModalClose())
 
     if(!this._canEvacuate){
+      this._evacuateBtn.innerText = 'Wait for evacuation bus...'
       this._evacuateBtn.setAttribute('disabled', 'disabled')
     } else {
+      this._evacuateBtn.innerText = `Evacuate ${this.GetEvacuationAmount()} people`
+      this._evacuateBtn.addEventListener('click', this._onEvacuate)
       this._evacuateBtn.removeAttribute('disabled')
     }
   }

@@ -7,7 +7,8 @@ export class Nation extends Entity {
 
   private _peopleInDanger = 0
   private _peopleSaved = 0
-  private _timeTillNextEvacuation = Settings.evacuationCooldown
+  private _totalPeople = 0
+  private _timeTillNextEvacuation = 0
   private _elapsedSinceLastEvacuation = 0
   private _houses: House[] = []
   private _turrets: Turret[] = []
@@ -18,6 +19,10 @@ export class Nation extends Entity {
 
   public get PeopleSaved(): number {
     return this._peopleSaved
+  }
+
+  public get PeopleCanSave(): number {
+    return this._totalPeople
   }
 
   public get TimeTillNextEvacuation(): number {
@@ -39,6 +44,7 @@ export class Nation extends Entity {
     this.InitBuildings(BuildingType.Turret, Settings.buildings.turret.amount, 6, Settings.grid.dimension - 3, 1, Settings.grid.dimension - 2)
 
     this._peopleInDanger = this._houses.reduce((num, item) => num + item.Population, 0)
+    this._totalPeople = this._peopleInDanger
   }
 
   public Update(deltaTime: number): void {

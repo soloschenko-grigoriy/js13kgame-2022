@@ -28,7 +28,7 @@ export const Settings = Object.freeze({
       },
       radius: 15,
       amount: 2,
-      population: 4,
+      population: 5,
       explosionTime: 2
     },
     house: {

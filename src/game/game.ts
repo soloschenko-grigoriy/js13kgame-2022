@@ -189,7 +189,7 @@ export class Game extends Entity {
 
     const template = document.body.querySelector('#gameOverTemplate') as HTMLElement
     const finalScoreElm = document.body.querySelector('#finalScore') as HTMLElement
-    finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
+    finalScoreElm.innerHTML = `${this._nation.PeopleSaved} from ${this._nation.PeopleCanSave}`
 
     this._state = GameState.Over
 
