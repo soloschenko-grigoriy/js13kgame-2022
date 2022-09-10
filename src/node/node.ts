@@ -4,8 +4,14 @@ import { Enemy } from '@/enemy'
 import { Game } from '@/game'
 import { Nation } from '@/nation'
 import { Settings } from '@/settings'
-import { Entity, Vector2D, IGraphNode } from '@/utils'
+import { Entity, Vector2D, IGraphNode, random } from '@/utils'
 import { NodeDrawComponent } from './components'
+
+export enum Decoration {
+  None,
+  Tree,
+  Forest
+}
 
 export class Node extends Entity implements IGraphNode {
   public isOnPath = false
@@ -18,6 +24,7 @@ export class Node extends Entity implements IGraphNode {
   private _templateBuildEml: HTMLElement
   private _templateCorruptedEml: HTMLElement
   private _buildTowerBtn: HTMLButtonElement
+  private _decoration: Decoration = Decoration.None
   private _onBuildTower = ():void => this.BuildTower()
 
   public get Building() : IBuilding | null {
@@ -50,6 +57,11 @@ export class Node extends Entity implements IGraphNode {
     return !this.Enemy && !this.IsCorrupted
   }
 
+
+  public get Decoration(): Decoration {
+    return this._decoration
+  }
+
   public get IsAccessible(): boolean {
     return !this._building || !(this._building instanceof Turret)
   }
@@ -72,6 +84,12 @@ export class Node extends Entity implements IGraphNode {
 
     this._templateBuildEml = document.body.querySelector('#build') as HTMLElement
     this._templateCorruptedEml = document.body.querySelector('#corrupted') as HTMLElement
+
+    if(Math.random() > 0.85){
+      this._decoration = random(1, 2)
+    }
+
+    console.log(this._decoration)
   }
 
   public Update(deltaTime: number): void {

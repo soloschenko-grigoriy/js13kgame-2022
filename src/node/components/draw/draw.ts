@@ -1,5 +1,5 @@
 import { IComponent, Color, Vector2D } from '@/utils'
-import { Node } from '@/node'
+import { Node, Decoration } from '@/node'
 import { Settings } from '@/settings'
 import { CanvasLayer } from '@/canvas-layer'
 
@@ -18,10 +18,20 @@ export class NodeDrawComponent implements IComponent {
 
   private Draw(): void {
     if(this.Entity.IsCorrupted){
-      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
+      CanvasLayer.Background.DrawImg('tile_0050.png', this.Entity.Start, this.Entity.Size)
       CanvasLayer.Background.DrawImg2('mark.png', this.Entity.Center, new Vector2D(0.75, 0.75))
     } else {
-      CanvasLayer.Background.DrawImg('grass.png', this.Entity.Start, this.Entity.Size)
+      CanvasLayer.Background.DrawImg('tile_0050.png', this.Entity.Start, this.Entity.Size)
+
+      switch(this.Entity.Decoration){
+        case Decoration.Tree:
+          CanvasLayer.Background.DrawImg2('tile_0048.png', this.Entity.Center)
+          break
+          case Decoration.Forest:
+            CanvasLayer.Background.DrawImg2('tile_0060.png', this.Entity.Center)
+            break
+        default:
+      }
     }
 
     // CanvasLayer.Foreground.ClearRect(this.Entity.Start, this.Entity.Size)

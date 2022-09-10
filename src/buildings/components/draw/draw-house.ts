@@ -17,7 +17,7 @@ export class HouseDrawComponent implements IComponent {
   private Draw(): void {
     CanvasLayer.Background.DrawImg2(
       'house.png',
-      this.Entity.Node.Center,
+      this.Entity.Node.Center
     )
 
     CanvasLayer.Background.DrawText(

@@ -164,7 +164,7 @@ export class Game extends Entity {
   }
 
   private StartGame(): void {
-    this.ShowModal(document.body.querySelector('#intro') as HTMLElement)
+    // this.ShowModal(document.body.querySelector('#intro') as HTMLElement)
   }
 
   private Pause(): void {
