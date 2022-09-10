@@ -18,6 +18,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      cursor: pointer;
     }
     #hud{
       text-align: center;
@@ -44,17 +45,19 @@
       box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     }
     button {
-      background: #ff7543;
-      color: white;
       padding: .5em 1em;
       border-radius: 4px;
       border:0;
     }
-    button[disabled] {
+    button.primary[disabled] {
       background: #aeaeae;
       color: #ccc;
     }
-    button.closeModal {
+    button.primary {
+      background: #ff7543;
+      color: white;
+    }
+    button.cancel {
       background: #8eacbb;
       color: black;
     }
@@ -82,36 +85,36 @@
 
   <section class="modal-content hidden" id="houseTemplate">
     <h2 style="padding:0;margin:0">Residential Building</h2>
-    <h3>You can save these people if you evacuate them before enemy comes to their home!</h3>
+    <h3>You can save these people if you evacuate them before enemy comes to their homes!</h3>
     <footer>
-      <button id="evacBtn">Evacuate <span id="evacAmount">X</span> people</button>
-      <button class="closeModal">Cancel</button>
+      <button id="evacBtn" class="primary">Evacuate <span id="evacAmount">X</span> people</button>
+      <button class="closeModal cancel">Cancel</button>
     </footer>
   </section>
 
   <section class="modal-content hidden" id="gameOverTemplate">
     <h2 style="padding:0;margin:0">Game Over!</h2>
     <h3>You managed to evacuate: <span id="finalScore"></span> people</h3>
-    <footer><button onclick="window.location.reload()">Start over</button></footer>
+    <footer><button onclick="window.location.reload()" class="primary">Start over</button></footer>
   </section>
 
   <section class="modal-content hidden" id="build">
     <h2>Empty Land</h2>
-    <h3>You can build new Tower here to stall enemy and give your citizens a chance to evacuate</h3>
-    <h3>But remember every tower requires soldiers who will inevitably DIE when enemy conquers the Tower</h3>
+    <h3>You can build a new Tower here to stall the enemy and give your citizens a chance to evacuate</h3>
+    <h3>But remember: every tower requires soldiers who will inevitably DIE when the enemy conquers the tower</h3>
     <h3>You will NOT be able to evacuate them anymore</h3>
     <footer>
-      <button id="buildTowerBtn">Build Tower (sacrifice 4 people)</button>
-      <button class="closeModal">Cancel</button>
+      <button id="buildTowerBtn" class="primary">Build Tower (sacrifice 4 people)</button>
+      <button class="closeModal cancel">Cancel</button>
     </footer>
   </section>
 
   <section class="modal-content hidden" id="corrupted">
     <h2 style="padding:0;margin:0">Corrupted Land</h2>
     <h3>This place has been captured and corrupted by enemy</h3>
-    <h3>There is nothing you can do...</h3>
+    <h3>There is nothing you can do here anymore...</h3>
     <footer>
-      <button class="closeModal">Close</button>
+      <button class="closeModal cancel">Close</button>
     </footer>
   </section>
 
@@ -119,14 +122,22 @@
     <h2 style="padding:0;margin:0">Tower</h2>
     <h3 style="padding:0;margin:0">It protects adjacent land while there is at least one defender standing</h3>
     <p>Defenders alive: <b><span id="defenders"></span> people</b></p>
-    <footer><button class="closeModal">Close</button></footer>
+    <footer><button class="closeModal cancel">Close</button></footer>
   </section>
 
   <section class="modal-content hidden" id="enemy">
     <h2 style="padding:0;margin:0">Enemy</h2>
     <h3 style="padding:0;margin:0">They corrupt our land, destroy our homes, and ruin innocent lives</h3>
     <h3>You can't stop them. But you can slow them down by building Towers</h3>
-    <footer><button class="closeModal">Close</button></footer>
+    <footer><button class="closeModal cancel">Close</button></footer>
+  </section>
+  <section class="modal-content hidden" id="intro">
+    <h2 style="padding:0;margin:0">Death at the Door</h2>
+    <p>You are a Major of a small town which is under attack.</p>
+    <p>You don't have enough resources to stop the advance: sooner or later, your entire town will be captured and corrupted by Enemy.</p>
+    <p>Your goal is to evacuate as many people as possible to safety before it's too late.</p>
+    <p>Good luck!</p>
+    <footer><button class="closeModal primary">Start</button></footer>
   </section>
 </body>
 </html>

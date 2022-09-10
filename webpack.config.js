@@ -30,9 +30,9 @@ module.exports = {
       }
     ]
   },
-  mode: 'production',
-  // devtool: 'source-map', // comment before compressing
-  devServer: { 
+  mode: 'development',
+  devtool: 'source-map', // comment before compressing
+  devServer: {
     hot: true,
     historyApiFallback: true
   },
@@ -49,15 +49,15 @@ module.exports = {
         test: /\.js(\?.*)?$/i,
         terserOptions: {
           ecma: 'ESNext',
-          mangle: {
-            properties: true
-          },
+          // mangle: {
+          //   properties: true
+          // },
         }
       }),
     ],
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(), // comment before compressing
+    new webpack.HotModuleReplacementPlugin(), // comment before compressing
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: `${path.join(__dirname, 'public')}/index.html`,

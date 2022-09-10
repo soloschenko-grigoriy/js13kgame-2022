@@ -173,7 +173,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">public/corrupted2.png</key>
+            <key type="filename">../../Desktop/grass.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -182,9 +182,24 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>8,8,16,17</rect>
+                <rect>8,8,16,16</rect>
                 <key>scale9Paddings</key>
-                <rect>8,8,16,17</rect>
+                <rect>8,8,16,16</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../Desktop/mark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,13,25,25</rect>
+                <key>scale9Paddings</key>
+                <rect>13,13,25,25</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -203,22 +218,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/grass.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9Paddings</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">public/house7.png</key>
+            <key type="filename">public/house.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -248,7 +248,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">public/turret3.png</key>
+            <key type="filename">public/turret.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -266,12 +266,12 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>public/corrupted2.png</filename>
             <filename>public/explosion.png</filename>
-            <filename>public/grass.png</filename>
-            <filename>public/house7.png</filename>
+            <filename>public/house.png</filename>
             <filename>public/tank.png</filename>
-            <filename>public/turret3.png</filename>
+            <filename>public/turret.png</filename>
+            <filename>../../Desktop/mark.png</filename>
+            <filename>../../Desktop/grass.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -20,7 +20,6 @@ export class Game extends Entity {
 
   private _modalElm: HTMLElement
   private _templateEml: HTMLElement
-  private _finalScoreElm: HTMLElement
   private _closeModalBtn: HTMLButtonElement
   private _onClose = ():void => this.HideModal()
   private _entities: Entity[] = []
@@ -90,7 +89,8 @@ export class Game extends Entity {
     })
 
     this._modalElm = document.body.querySelector('.modal') as HTMLElement
-    this._finalScoreElm = document.body.querySelector('#finalScore') as HTMLElement
+
+    this.StartGame()
   }
 
   public Update(): void {
@@ -158,6 +158,10 @@ export class Game extends Entity {
     }, 0)
   }
 
+  private StartGame(): void {
+    this.ShowModal(document.body.querySelector('#intro') as HTMLElement)
+  }
+
   private Pause(): void {
     if(this._state !== GameState.Running){
       return
@@ -179,7 +183,8 @@ export class Game extends Entity {
     this.RemoveComponent(GameInputComponent)
 
     const template = document.body.querySelector('#gameOverTemplate') as HTMLElement
-    this._finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
+    const finalScoreElm = document.body.querySelector('#finalScore') as HTMLElement
+    finalScoreElm.innerHTML = this._nation.PeopleSaved.toString()
 
     this._state = GameState.Over
 
