@@ -14,10 +14,10 @@ export const Settings = Object.freeze({
     color: new Color(55, 71, 79, 1),
     locomotion: {
       range: 3,
-      duration: 200
+      duration: 100
     },
-    occupationTime: 1000,
-    spawnCooldown: 3,
+    occupationTime: 300,
+    spawnCooldown: 2,
     explosionTime: 1
   },
   buildings: {
