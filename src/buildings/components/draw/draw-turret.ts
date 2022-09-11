@@ -21,63 +21,42 @@ export class TurretDrawComponent implements IComponent {
       CanvasLayer.Background.DrawImg2(
         'explosion.png',
         this.Entity.Node.Center,
-        new Vector2D(0.5, 0.5),
       )
       return
     }
 
-    let angle = 0
+    let lookAt = Direction.Up
     if(this.Entity.NodeWithEnemyToAttack){
-      const lookAt = Grid.CalcRotationToLooAt(this.Entity.Node, this.Entity.NodeWithEnemyToAttack)
-      angle = this.CalcDirectionToAngle(lookAt)
+      lookAt = Grid.CalcRotationToLooAt(this.Entity.Node, this.Entity.NodeWithEnemyToAttack)
     }
 
     CanvasLayer.Background.DrawImg2(
       'turret.png',
       this.Entity.Node.Center,
       new Vector2D(0.75, 0.75),
-      angle
+      this.CalcDirectionToAngle(lookAt)
     )
-
-    // CanvasLayer.Background.FillSector(
-    //   this.Entity.Node.Center,
-    //   Settings.buildings.turret.radius,
-    //   Settings.buildings.turret.colors.bg,
-    //   -90,
-    //   this.DegreeForCharge,
-    //   true
-    // )
 
     CanvasLayer.Background.DrawText(
       this.Entity.Population.toString(),
-      new Vector2D(this.Entity.Node.Center.x - 4, this.Entity.Node.Center.y + 12),
+      this.CalcTextPosition(lookAt),
       Settings.buildings.turret.colors.text,
       16
     )
   }
+  public CalcTextPosition(direction: Direction): Vector2D{
+    const center = this.Entity.Node.Center
+
+    switch(direction){
+      case Direction.Up: return new Vector2D(center.x - 4, center.y + 12)
+      case Direction.Right: return new Vector2D(center.x - 12, center.y + 6)
+      case Direction.Down: return new Vector2D(center.x - 4, center.y)
+      case Direction.Left: return new Vector2D(center.x + 2, center.y + 6)
+    }
+  }
 
   public Clear(): void {
     CanvasLayer.Background.ClearRect(this.Entity.Node.Start, this.Entity.Node.Size)
-  }
-
-  private get DegreeForCharge(): number {
-    if(this.Entity.Population === 4){
-      return 270
-    }
-
-    if(this.Entity.Population === 3){
-      return 0
-    }
-
-    if(this.Entity.Population === 2){
-      return 90
-    }
-
-    if(this.Entity.Population === 1){
-      return 180
-    }
-
-    return -90
   }
 
   private CalcDirectionToAngle(direction: Direction): number {
