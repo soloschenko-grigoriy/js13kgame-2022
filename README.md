@@ -1,5 +1,7 @@
-# Building a Game With TypeScript
-> In this [series of tutorials](https://medium.com/@gregsolo/gamedev-patterns-and-algorithms-in-action-with-typescript-d29b913858e) we are discussing how to build a simple turn-based game from scratch using TypeScript, no external libraries, SOLID architecture, incremental approach and unit testing.
+# Death at the Door
+You are a Major of a small town which is under attack.
+You don't have enough resources to stop the advance: sooner or later, your entire town will be captured and corrupted by Enemy.
+Your goal is to evacuate as many people as possible to safety before it's too late.
 
 ## Project setup
 - install Node.js (the version is specified in package.json)
@@ -17,18 +19,19 @@ npm install
 npm start
 ```
 
-## Run your unit tests
+## Build
 ```
-npm t
-```
-## Lints and fixes files
-```
-npm run lint
+npm run build
 ```
 
 ## Tech stack
 - TypeScript 
 - Jest / ESLint
 
-## Links
-[Complete tutorial](https://medium.com/@gregsolo/gamedev-patterns-and-algorithms-in-action-with-typescript-d29b913858e)
+## Art
+[Pixel Shmup](https://www.kenney.nl/assets/pixel-shmup)
+[Top-down Tanks Redux](https://www.kenney.nl/assets/topdown-tanks-redux)
+[City Tiles - Top Down](https://opengameart.org/content/12x12-city-tiles-top-down)
+
+## Extra
+[Tutorial describing the engine in great details](https://medium.com/@gregsolo/gamedev-patterns-and-algorithms-in-action-with-typescript-d29b913858e)

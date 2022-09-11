@@ -124,7 +124,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../Desktop/pack.json</filename>
+                <filename>public/pack.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -173,21 +173,6 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../Desktop/grass.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,8,16,16</rect>
-                <key>scale9Paddings</key>
-                <rect>8,8,16,16</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">../../Desktop/mark.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -248,6 +233,23 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">public/tiles/tile_0048.png</key>
+            <key type="filename">public/tiles/tile_0050.png</key>
+            <key type="filename">public/tiles/tile_0060.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9Paddings</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">public/turret.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -267,11 +269,13 @@
         <key>fileList</key>
         <array>
             <filename>public/explosion.png</filename>
-            <filename>public/house.png</filename>
             <filename>public/tank.png</filename>
             <filename>public/turret.png</filename>
             <filename>../../Desktop/mark.png</filename>
-            <filename>../../Desktop/grass.png</filename>
+            <filename>public/house.png</filename>
+            <filename>public/tiles/tile_0048.png</filename>
+            <filename>public/tiles/tile_0060.png</filename>
+            <filename>public/tiles/tile_0050.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

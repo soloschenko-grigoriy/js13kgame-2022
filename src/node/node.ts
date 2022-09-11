@@ -88,8 +88,6 @@ export class Node extends Entity implements IGraphNode {
     if(Math.random() > 0.85){
       this._decoration = random(1, 2)
     }
-
-    console.log(this._decoration)
   }
 
   public Update(deltaTime: number): void {
