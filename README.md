@@ -3,6 +3,8 @@ You are a Major of a small town which is under attack.
 You don't have enough resources to stop the advance: sooner or later, your entire town will be captured and corrupted by Enemy.
 Your goal is to evacuate as many people as possible to safety before it's too late.
 
+![image](https://user-images.githubusercontent.com/5962670/189506634-e4a80345-b946-43ef-aaaf-5d26d34311c8.png)
+
 ## Project setup
 - install Node.js (the version is specified in package.json)
 - if you have nvm installed: 
