@@ -7,7 +7,7 @@ Your goal is to evacuate as many people as possible to safety before it's too la
 
 ## Project setup
 - install Node.js (the version is specified in package.json)
-- if you have nvm installed: 
+- OR if you have nvm installed: 
 ```
 nvm use
 ```
@@ -16,7 +16,7 @@ nvm use
 npm install
 ```
 
-## Compiles and hot-reloads for development
+## Compile and run in dev-mode
 ```
 npm start
 ```
@@ -31,9 +31,9 @@ npm run build
 - Jest / ESLint
 
 ## Art
-[Pixel Shmup](https://www.kenney.nl/assets/pixel-shmup)
-[Top-down Tanks Redux](https://www.kenney.nl/assets/topdown-tanks-redux)
-[City Tiles - Top Down](https://opengameart.org/content/12x12-city-tiles-top-down)
+- [Pixel Shmup](https://www.kenney.nl/assets/pixel-shmup)
+- [Top-down Tanks Redux](https://www.kenney.nl/assets/topdown-tanks-redux)
+- [City Tiles - Top Down](https://opengameart.org/content/12x12-city-tiles-top-down)
 
 ## Extra
 [Tutorial describing the engine in great details](https://medium.com/@gregsolo/gamedev-patterns-and-algorithms-in-action-with-typescript-d29b913858e)
